@@ -6,5 +6,8 @@ module.exports = {
     "postcss-url": {},
     // to edit target browsers: use "browserslist" field in package.json
     "autoprefixer": {}
-  }
+  },
+  devServer: {
+    proxy: 'http://127.0.0.1:5000/',
+},
 }
