@@ -17,7 +17,7 @@
                 <p>38 comments</p>
               </li>
               <li class="last-block">
-                <a href="movie-page-left.html" class="slide__link">more</a>
+                <a @click="detailMovie(movie.id)" href="movie-page-left.html" class="slide__link">more</a>
               </li>
             </ul>
           </div>
@@ -34,6 +34,11 @@
     props: {
       moviesBest: Array
     },
+    methods: {
+      detailMovie(id) {
+        this.$router.push({ name: 'MovieDetails' });
+      }
+    }
   }
 </script>
 

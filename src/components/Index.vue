@@ -565,18 +565,34 @@ export default {
   methods: {
     async getMovies() {
       try {
-        var myHeaders = new Headers({
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-          'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-          'Content-type': 'application/json; charset=UTF-8' 
-        });
-        const response = await fetch('http://127.0.0.1:5000/api/list_movies',  {
-          headers: myHeaders
-          // mode: 'no-cors'
-        })
-        const data = await response.json()
-        this.movies = data
+      // await axios.get('http://localhost:5000/api/list_movies', {
+      //   method: 'GET',
+      //   mode: 'no-cors',
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   withCredentials: true,
+      //   credentials: 'same-origin'
+      // })
+      // .then(response => {
+      //   this.movies = response.data
+      // })
+      // .catch(error => {
+      //   this.errors.push(error)
+      // })
+        const response = await axios.get('http://127.0.0.1:5000/api/list_movies',  {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+        credentials: 'same-origin'
+      })
+        // const data = await response.json()
+        this.movies = response
       } catch (error) {
         this.errors.push(error)
       }
