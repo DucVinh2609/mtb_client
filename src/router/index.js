@@ -35,7 +35,7 @@ export default new Router({
       component: DemoElementUI
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: 'MovieDetails',
       component: MovieDetails
     },

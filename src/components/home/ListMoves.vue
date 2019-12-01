@@ -7,13 +7,13 @@
         <div v-for="movie in movies" :key="movie.id">
           <div class="movie movie--test movie--test--dark movie--test--left">
             <div class="movie__images">
-              <a href="movie-page-left.html" class="movie-beta__link">
+              <a @click="detailMovie(movie)" class="movie-beta__link">
                 <img alt src="../../assets/images/movie/movie-time8.jpg" />
               </a>
             </div>
 
             <div class="movie__info">
-              <a href="movie-page-left.html" class="movie__title">{{ movie.name }} ({{ movie.start_date }})</a>
+              <a @click="detailMovie(movie)" class="movie__title">{{ movie.name }} ({{ movie.start_date }})</a>
 
               <p class="movie__time">{{ movie.duration }}  min</p>
 
@@ -43,6 +43,11 @@
     props: {
       movies: Array
     },
+    methods: {
+      detailMovie(movie) {
+        this.$router.push({ name: 'MovieDetails', params:{id: movie.id} });
+      }
+    }
   }
 </script>
 
