@@ -16,7 +16,7 @@
           <!-- Font awesome - icon font -->
           <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
           <!-- Roboto -->
-          <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
+          <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
           <!-- Open Sans -->
           <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css'>
       
@@ -34,6 +34,10 @@
       
           <!-- Custom -->
           <link href="static/css/style.css" rel="stylesheet" />
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
+          <link href="static/css/external/idangerous.swiper.css" rel=stylesheet>
   
   
           <!-- Modernizr --> 
@@ -70,6 +74,9 @@
     <!-- Stars rate -->
     <script src="static/js/external/jquery.raty.js"></script>
     <!-- Swiper slider -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js.map"></script> -->
     <script src="static/js/external/idangerous.swiper.min.js"></script>
     <!-- Magnific-popup -->
     <script src="static/js/external/jquery.magnific-popup.min.js"></script>  
@@ -92,5 +99,18 @@
 
     <!-- Custom -->
     <script src="static/js/custom.js"></script>
+    <script>
+      $(document).ready(function () {
+        //initialize swiper when document ready
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 8,
+          spaceBetween: 30,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+        });
+      });
+    </script>
   </body>
 </html>

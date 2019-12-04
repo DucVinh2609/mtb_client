@@ -8597,7 +8597,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   transition: 0.3s;
 }
 .cinema--full .cinema__gallery .swiper-slide:hover {
-  cursor: url(../images/components/cursor.png), auto;
+  cursor: url(../src/images/components/cursor.png), auto;
 }
 .cinema--full .cinema__gallery .swiper-slide:hover:before {
   opacity: 0;

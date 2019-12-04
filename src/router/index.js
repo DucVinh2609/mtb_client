@@ -14,9 +14,9 @@ import Login from '@/components/Login'
 import News from '@/components/News'
 import SinglePost from '@/components/SinglePost'
 import Gallery from '@/components/Gallery'
-import BookStep1 from '@/components/BookStep1'
-import BookStep2 from '@/components/BookStep2'
-import BookStep3Buy from '@/components/BookStep3Buy'
+import BookStep1 from '@/components/bookingStep/BookStep1'
+import BookStep2 from '@/components/bookingStep/BookStep2'
+import BookStep3 from '@/components/bookingStep/BookStep3'
 import BookStep3Reserve from '@/components/BookStep3Reserve'
 import BookStep4 from '@/components/BookStep4'
 
@@ -105,8 +105,8 @@ export default new Router({
       component: BookStep2
     },
     {
-      path: '/booking-step-3-buy',
-      name: 'BookStep3Buy',
+      path: '/booking-step-3',
+      name: 'BookStep3',
       component: BookStep3Buy
     },
     {
