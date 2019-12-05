@@ -227,7 +227,7 @@
 
           <div class="clearfix"></div>
           <!-- select TIME MOVIE -->
-          <TimeMovie></TimeMovie>
+          <TimeMovie v-bind:movieDate="movieDate" v-bind:movieTime="movieTime"></TimeMovie>
 
           <!-- hiden maps with multiple locator-->
           <div class="map">
@@ -357,7 +357,9 @@
     data() {
       return {
         moviesDetail: [],
-        errors: []
+        errors: [],
+        movieDate: [],
+        movieTime: []
       }
     },
     methods: {
@@ -369,10 +371,30 @@
         } catch (error) {
           this.errors.push(error)
         }
-      }
+      },
+      async getMovieDate() {
+        try {
+          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          const data = await response.json()
+          this.movieDate = data
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
+      async getMovieTime() {
+        try {
+          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          const data = await response.json()
+          this.movieTime = data
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
     },
     mounted() {
-      this.getMovieDetail()
+      this.getMovieDetail(),
+      this.getMovieDate(),
+      this.getMovieTime()
     },
   }
 </script>

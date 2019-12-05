@@ -73,7 +73,11 @@
     import router from '@/router'
 
     export default {
-        name: 'time-movie'
+        name: 'time-movie',
+        props: {
+            movieDate: Array,
+            movieTime: Array
+        },
     }
 </script>
 
