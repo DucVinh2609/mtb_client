@@ -440,30 +440,3 @@
     </footer>
   </div>
 </template>
-
-<script>
-    import Header from '@/components/common/Header.vue'
-    import ModalSignin from '@/components/common/ModalSignin.vue'
-    import Footer from '@/components/common/Footer.vue'
-    import Search from '@/components/common/Search.vue'
-    import TimeMovie from '@/components/movie/TimeMovie.vue'
-    import axios from 'axios'
-
-    export default {
-      components: {
-          Header,
-          ModalSignin,
-          Footer,
-          TimeMovie,
-          Search
-      },
-      methods: {
-        bookStep1() {
-          this.$router.push({ name: 'BookStep1'});
-        },
-        bookStep3() {
-          this.$router.push({ name: 'BookStep3'});
-        }
-      }
-    }
-</script>

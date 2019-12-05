@@ -9,7 +9,7 @@
     <Header></Header>
 
     <!-- Search bar -->
-      <Search></Search>
+    <!-- <Search></Search> -->
     <!-- Main content -->
 
     <section class="container">

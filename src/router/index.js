@@ -107,7 +107,7 @@ export default new Router({
     {
       path: '/booking-step-3',
       name: 'BookStep3',
-      component: BookStep3Buy
+      component: BookStep3
     },
     {
       path: '/booking-step-3-reserve',
