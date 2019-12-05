@@ -279,8 +279,9 @@ export default {
     async getMovieBest() {
       try {
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'http://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best'
-        const response = await fetch('http://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best')
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/best_movies'
+        // const response = await fetch('http://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best')
+        const response = await fetch(proxyUrl + targetUrl)
         const data = await response.json()
         this.moviesBest = data
       } catch (error) {
