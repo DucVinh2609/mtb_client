@@ -267,25 +267,20 @@ export default {
   methods: {
     async getMovies() {
       try {
-        const response = await fetch('https://mtb-admin.herokuapp.com/api/list_movies',  {
-        // method: 'GET',
-        // mode: 'no-cors',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-        // withCredentials: true,
-        // credentials: 'same-origin'
-      })
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/list_movies'
+        const response = await fetch(proxyUrl + targetUrl)
         const data = await response.json()
-        this.movies = response
+        this.movies = data
       } catch (error) {
         this.errors.push(error)
       }
     },
     async getMovieBest() {
       try {
-        const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best')
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'http://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best'
+        const response = await fetch('http://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best')
         const data = await response.json()
         this.moviesBest = data
       } catch (error) {

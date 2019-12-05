@@ -379,10 +379,30 @@
         } catch (error) {
           this.errors.push(error)
         }
-      }
+      },
+      // async getMovieDate() {
+      //   try {
+      //     const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+      //     const data = await response.json()
+      //     this.moviesDates = data
+      //   } catch (error) {
+      //     this.errors.push(error)
+      //   }
+      // },
+      // async getMovieTime() {
+      //   try {
+      //     const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+      //     const data = await response.json()
+      //     this.moviesTimes = data
+      //   } catch (error) {
+      //     this.errors.push(error)
+      //   }
+      // },
     },
     mounted() {
       this.getMovieDetail()
+      // this.getMovieDate(),
+      // this.getMovieTime()
     },
   }
 </script>
