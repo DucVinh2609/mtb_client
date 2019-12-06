@@ -411,7 +411,7 @@
       },
     },
     mounted() {
-      this.getMovieDetail()
+      this.getMovieDetail(),
       this.getMovieDate(),
       this.getMovieTime()
     },
