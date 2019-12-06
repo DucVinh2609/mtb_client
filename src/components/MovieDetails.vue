@@ -346,6 +346,7 @@
   import ModalSignin from './common/ModalSignin.vue'
   import Footer from './common/Footer.vue'
   import TimeMovie from './movie/TimeMovie.vue'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -374,23 +375,27 @@
     },
     methods: {
       async getMovieDetail() {
-        try {
-          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-          // const response = await fetch('https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id)
-          const response = await fetch(proxyUrl + targetUrl)
-          const data = await response.json()
-          this.moviesDetail = data
-        } catch (error) {
-          this.errors.push(error)
-        }
+        this.axios.get(proxyUrl + targetUrl).then((response)=>{
+          this.moviesDetail=response.data;
+        });
+
+        // try {
+        //   var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+        //     targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+        //   const response = await fetch(proxyUrl + targetUrl)
+        //   const data = await response.json()
+        //   this.moviesDetail = data
+        // } catch (error) {
+        //   this.errors.push(error)
+        // }
       },
       async getMovieDate() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
           const response = await fetch(proxyUrl + targetUrl)
-          // const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
           const data = await response.json()
           this.moviesDates = data
         } catch (error) {
@@ -402,7 +407,6 @@
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
           const response = await fetch(proxyUrl + targetUrl)
-          // const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
           const data = await response.json()
           this.moviesTimes = data
         } catch (error) {
