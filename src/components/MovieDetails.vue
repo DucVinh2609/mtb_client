@@ -227,7 +227,7 @@
 
           <div class="clearfix"></div>
           <!-- select TIME MOVIE -->
-          <TimeMovie v-bind:movieDate="movieDate" v-bind:movieTime="movieTime"></TimeMovie>
+          <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
 
           <!-- hiden maps with multiple locator-->
           <div class="map">
@@ -358,14 +358,26 @@
       return {
         moviesDetail: [],
         errors: [],
-        movieDate: [],
-        movieTime: []
+        moviesDates: [],
+        moviesTimes: []
+        // moviesDates: [	
+        //   {"id":1,"movie_id":1,"room_id":1,"showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"showtime":"2019-12-1"}, {"id":3,"movie_id":1,"room_id":1,"showtime":"2019-12-03"}, {"id":4,"movie_id":1,"room_id":1,"showtime":"2019-12-04"}	
+        // ],	
+        // moviesTimes: [	
+        //   {"id":1,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":3,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":4,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"},	
+        //   {"id":5,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":6,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":7,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":8,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"},	
+        //   {"id":9,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":10,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":11,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":12,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"},	
+        //   {"id":13,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":14,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":15,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":16,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"},	
+        // ]	
+
       }
     },
     methods: {
       async getMovieDetail() {
         try {
-          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+          const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
           this.moviesDetail = data
         } catch (error) {
@@ -374,18 +386,22 @@
       },
       async getMovieDate() {
         try {
-          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
+          const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
-          this.movieDate = data
+          this.movieDates = data
         } catch (error) {
           this.errors.push(error)
         }
       },
       async getMovieTime() {
         try {
-          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
+          const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
-          this.movieTime = data
+          this.movieTimes = data
         } catch (error) {
           this.errors.push(error)
         }
@@ -393,8 +409,8 @@
     },
     mounted() {
       this.getMovieDetail(),
-      this.getMovieDate(),
-      this.getMovieTime()
+      this.getMovieDates(),
+      this.getMovieTimes()
     },
   }
 </script>
