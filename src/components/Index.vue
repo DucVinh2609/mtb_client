@@ -565,16 +565,7 @@ export default {
   methods: {
     async getMovies() {
       try {
-        var myHeaders = new Headers({
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-          'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-          'Content-type': 'application/json; charset=UTF-8' 
-        });
-        const response = await fetch('http://127.0.0.1:5000/api/list_movies',  {
-          headers: myHeaders
-          // mode: 'no-cors'
-        })
+        const response = await fetch('https://mtb-admin.herokuapp.com/api/list_movies')
         const data = await response.json()
         this.movies = data
       } catch (error) {
