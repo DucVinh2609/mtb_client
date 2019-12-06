@@ -409,8 +409,8 @@
     },
     mounted() {
       this.getMovieDetail(),
-      this.getMovieDates(),
-      this.getMovieTimes()
+      this.getMovieDate(),
+      this.getMovieTime()
     },
   }
 </script>
