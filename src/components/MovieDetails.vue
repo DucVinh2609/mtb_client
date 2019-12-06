@@ -129,37 +129,37 @@
                             <img alt="" src="../assets/images/movie/movie-video1.jpg">
                       </a>
                     </div>
-
+                    
                     <!--Second Slide-->
                     <div class="swiper-slide media-video swiper-slide-visible" style="width: 209.375px; height: 119.625px; display: none;">
                       <a href="https://www.youtube.com/watch?v=Kb3ykVYvT4U" class="movie__media-item">
                           <img alt="" src="images/movie/movie-video2.jpg">
                       </a>
                     </div>
-
+                    
                     <!--Third Slide-->
-                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block; margin-left: -1px;">
+                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block; margin-left: -1px;"> 
                           <a href="images/movie/movie-img1-lg.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img1.jpg">
                             </a>
                     </div>
 
                     <!--Four Slide-->
-                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block;">
+                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block;"> 
                           <a href="images/movie/movie-img2-lg.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img2.jpg">
                             </a>
                     </div>
 
                     <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible swiper-slide-active" style="width: 215.333px; height: 90.8906px; display: block;">
+                    <div class="swiper-slide media-photo swiper-slide-visible swiper-slide-active" style="width: 215.333px; height: 90.8906px; display: block;"> 
                           <a href="images/gallery/large/item-7.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img3.jpg">
                             </a>
                     </div>
 
                     <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
+                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;"> 
                           <a href="images/gallery/large/item-11.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img4.jpg">
                             </a>
@@ -171,7 +171,7 @@
                             <img alt="" src="images/movie/movie-video1.jpg">
                       </a>
                     </div>
-
+                    
                     <!--Second Slide-->
                     <div class="swiper-slide media-video swiper-slide-visible" style="width: 209.375px; height: 119.625px; display: none;">
                       <a href="https://www.youtube.com/watch?v=Kb3ykVYvT4U" class="movie__media-item">
@@ -180,19 +180,19 @@
                     </div>
 
                     <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
+                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;"> 
                           <a href="images/gallery/large/item-15.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img5.jpg">
                             </a>
                     </div>
 
                     <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
+                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;"> 
                           <a href="images/gallery/large/item-16.jpg" class="movie__media-item">
                               <img alt="" src="images/movie/movie-img6.jpg">
                             </a>
                     </div>
-
+              
                 </div>
               </div>
           </div>
@@ -227,7 +227,7 @@
 
           <div class="clearfix"></div>
           <!-- select TIME MOVIE -->
-          <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
+          <TimeMovie v-bind:movieDate="movieDate" v-bind:movieTime="movieTime"></TimeMovie>
 
           <!-- hiden maps with multiple locator-->
           <div class="map">
@@ -346,7 +346,7 @@
   import ModalSignin from './common/ModalSignin.vue'
   import Footer from './common/Footer.vue'
   import TimeMovie from './movie/TimeMovie.vue'
-
+  
   export default {
     components: {
       Header,
@@ -358,27 +358,14 @@
       return {
         moviesDetail: [],
         errors: [],
-        moviesDates: [],
-        moviesTimes: []
-        // moviesDates: [
-        //   {"id":1,"movie_id":1,"room_id":1,"showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"showtime":"2019-12-1"}, {"id":3,"movie_id":1,"room_id":1,"showtime":"2019-12-03"}, {"id":4,"movie_id":1,"room_id":1,"showtime":"2019-12-04"}
-        // ],
-        // moviesTimes: [
-        //   {"id":1,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":3,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":4,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"},
-        //   {"id":5,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":6,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":7,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":8,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"},
-        //   {"id":9,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":10,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":11,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":12,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"},
-        //   {"id":13,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":14,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":15,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":16,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"},
-        // ]
-
+        movieDate: [],
+        movieTime: []
       }
     },
     methods: {
       async getMovieDetail() {
         try {
-          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-          // const response = await fetch('https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id)
-          const response = await fetch(proxyUrl + targetUrl)
+          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
           const data = await response.json()
           this.moviesDetail = data
         } catch (error) {
@@ -387,24 +374,18 @@
       },
       async getMovieDate() {
         try {
-          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
-          // const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
           const data = await response.json()
-          this.moviesDates = data
+          this.movieDate = data
         } catch (error) {
           this.errors.push(error)
         }
       },
       async getMovieTime() {
         try {
-          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
-          // const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
+          const response = await fetch('https://5ddcc1c9f40ae700141e8647.mockapi.io/movie-best/'+this.$route.params.id)
           const data = await response.json()
-          this.moviesTimes = data
+          this.movieTime = data
         } catch (error) {
           this.errors.push(error)
         }
