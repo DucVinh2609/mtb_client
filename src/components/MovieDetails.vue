@@ -390,7 +390,7 @@
             targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
           const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
-          this.movieDates = data
+          this.moviesDates = data
         } catch (error) {
           this.errors.push(error)
         }
@@ -401,7 +401,7 @@
             targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
           const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
-          this.movieTimes = data
+          this.moviesTimes = data
         } catch (error) {
           this.errors.push(error)
         }
