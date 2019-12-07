@@ -376,7 +376,7 @@
     methods: {
       async getMovieDetail() {
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$router.params.id
         this.axios.get(proxyUrl + targetUrl).then((response)=>{
           this.moviesDetail=response.data;
         });
@@ -415,7 +415,7 @@
       },
     },
     mounted() {
-      this.getMovieDetail()
+      this.getMovieDetail(),
       this.getMovieDate(),
       this.getMovieTime()
     },

@@ -6,7 +6,7 @@
       </div>
       <ul class="col-sm-8 items-wrap">
         <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myFilter(id)" v-bind:class="{ active: id === isActive }">
-          {{ moviesTime.time | formatTime}}
+          {{ moviesTime.time | formatTime }}
         </li>
       </ul>
     </div>
