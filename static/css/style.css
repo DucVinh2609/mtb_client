@@ -6284,7 +6284,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   margin-left: -50px;
 }
 .choose-film .swiper-slide:hover {
-  cursor: url(../images/components/cursor.png), auto;
+  cursor: url(src/assets/images/components/cursor.png), auto;
 }
 .choose-indector {
   position: relative;
