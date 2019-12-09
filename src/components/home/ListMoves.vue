@@ -8,7 +8,8 @@
           <div class="movie movie--test movie--test--dark movie--test--left">
             <div class="movie__images">
               <a @click="detailMovie(movie)" class="movie-beta__link">
-                <img alt src="../../assets/images/movie/movie-time8.jpg" />
+                <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
+                <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
               </a>
             </div>
 
@@ -46,7 +47,11 @@
     methods: {
       detailMovie(movie) {
         this.$router.push({ name: 'MovieDetails', params:{id: movie.id} });
+      },
+      getImgae(image){
+        return 'https://mtb-admin.herokuapp.com'+image;
       }
+      
     }
   }
 </script>

@@ -4,15 +4,16 @@
     <div class="col-sm-12 change--col">
       <div v-for="movie in moviesBest" :key="movie.id">
         <div class="movie-beta__item mutiple-item">
-          <img alt src="../../assets/images/movie/movie-sample1.jpg" />
-          <span class="best-rate">5.0</span>
+          <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
+          <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
+          <span class="best-rate">{{ movie.rate }}</span>
 
           <ul class="movie-beta__info">
             <li>
               <span class="best-voted">{{ movie.name }}</span>
             </li>
             <li>
-              <p class="movie__time">{{ movie.duration }} min</p>
+              <p class="movie__time">{{ movie.duration | formatTime }} min</p>
               <p>Adventure | Drama | Fantasy</p>
               <p>38 comments</p>
             </li>
@@ -39,6 +40,9 @@
     methods: {
       detailMovie(movie) {
         this.$router.push({ name: 'MovieDetails', params:{id: movie.id} });
+      },
+      getImgae(image){
+        return 'https://mtb-admin.herokuapp.com'+image;
       }
     }
   }
