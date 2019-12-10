@@ -60,7 +60,10 @@
                 </aside>
 
                 <div class="sits__row" v-for="row in rows" v-bind:key="row.id">
-                  <span class="sits__place sits-price--cheap" v-for="column in columns" v-bind:key="column.id">{{ row }}{{ column }}</span>
+                  <span v-for="column in columns" v-bind:key="column.id">
+                    <span v-if="checkSeatIsAcitive(row, column) === true" class="sits__place sits-price--middle" >{{ row }}{{ column }}</span>
+                    <span v-else class="sits__place sits-price--cheap" @click="yourSeatChooses(row, column)" v-bind:class="{'sits-state--your': activeSeat == row+column}">{{ row }}{{ column }}</span>
+                  </span>
                 </div>
                 <aside class="sits__checked">
                   <div class="checked-place">
@@ -129,7 +132,9 @@
           rows: [],
           columns: null,
           errors: [],
-          seats: []
+          seats: [],
+          seatChooses: [],
+          activeSeat: null
         }
       },
       methods: {
@@ -170,6 +175,24 @@
           .catch(e => {
             this.errors.push(e)
           })
+        },
+        checkSeatIsAcitive(row, column) {
+          return (jQuery.inArray(row+column, this.seats) !== -1 ) ? true : false
+        },
+        yourSeatChooses(row, column) {
+          for (var i = 0; i <= this.seatChooses.length ; i++) {
+            if (jQuery.inArray(row+column, this.seats) !== -1) {
+              this.seatChooses.splice(row+column, 1)
+              return this.activeSeat = false
+            } else {
+              this.seatChooses.push(row+column)
+              return this.activeSeat = row+column
+            }
+          }
+
+          // console.log(this.seatChooses)
+          // return activeSeat
+          // console.log(this.seatChooses)
         }
       },
       mounted() {
