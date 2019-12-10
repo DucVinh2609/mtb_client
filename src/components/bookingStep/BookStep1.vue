@@ -39,8 +39,9 @@
         <div class="swiper-wrapper">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
-            <div class="film-images  " @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
-              <img alt src="../../assets/images/movie/movie-sample1.jpg" />
+            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
+              <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
+              <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
             </div>
             <p class="choose-film__title">{{ movie.name }}</p>
           </div>
@@ -54,7 +55,7 @@
           <strong>Choosen:</strong>
           <span class="choosen-area">{{ isNameMovie }}</span>
         </div>
-<h2 class="page-heading heading--outcontainer">Choose a Time</h2>
+        <h2 class="page-heading heading--outcontainer">Choose a Time</h2>
         <div class="ime-select--wide">
           <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
         </div>
@@ -95,19 +96,6 @@
   </div>
 </template>
 
-<script>
-  $(document).ready(function () {
-    //initialize swiper when document ready
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 8,
-      spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-  });
-</script>
 <script>
   import Header from '@/components/common/Header.vue'
   import ModalSignin from '@/components/common/ModalSignin.vue'
@@ -183,6 +171,9 @@
           this.errors.push(error)
         }
       },
+      getImgae(image){
+        return 'https://mtb-admin.herokuapp.com'+image;
+      }
     },
     mounted() {
       this.getMovies()
