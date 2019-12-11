@@ -39,8 +39,9 @@
         <div class="swiper-wrapper">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
-            <div class="film-images  " @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
-              <img alt src="../../assets/images/movie/movie-sample1.jpg" />
+            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
+              <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
+              <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
             </div>
             <p class="choose-film__title">{{ movie.name }}</p>
           </div>
@@ -54,14 +55,26 @@
           <strong>Choosen:</strong>
           <span class="choosen-area">{{ isNameMovie }}</span>
         </div>
-<h2 class="page-heading heading--outcontainer">Choose a Time</h2>
+        <h2 class="page-heading heading--outcontainer">Choose a Time</h2>
         <div class="ime-select--wide">
-          <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
+          <div class="time-select">
+            <div class="time-select__group" v-for="moviesDate in moviesDates" :key="moviesDate.id">
+              <div class="col-sm-4">
+                <p class="time-select__place">{{ moviesDate.showtime | formatDate }}</p>
+              </div>
+              <ul class="col-sm-8 items-wrap">
+                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id), myNameTime(moviesTime.showtime)" v-bind:class="{ active: id === isTimeMove }">
+                  {{ moviesTime.time | formatTime }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie> -->
         </div>
 
         <div class="choose-indector choose-indector--time">
           <strong>Choosen:</strong>
-          <span class="choosen-area"></span>
+          <span class="choosen-area">{{ timeMove | formatTime }}</span>
         </div>
       </div>
     </section>
@@ -82,7 +95,7 @@
           <span class="arrow__text arrow--prev"></span>
           <span class="arrow__info"></span>
         </a>
-        <a @click="bookStep2()" class="booking-pagination__next">
+        <a v-if="isTimeMove != null" @click="bookStep2()" class="booking-pagination__next">
           <span class="arrow__text arrow--next">next step</span>
           <span class="arrow__info">choose a sit</span>
         </a>
@@ -95,19 +108,6 @@
   </div>
 </template>
 
-<script>
-  $(document).ready(function () {
-    //initialize swiper when document ready
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 8,
-      spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-  });
-</script>
 <script>
   import Header from '@/components/common/Header.vue'
   import ModalSignin from '@/components/common/ModalSignin.vue'
@@ -129,20 +129,23 @@
         movies: [],
         errors: [],
         isActive: null,
+        isTimeMove: null,
         isNameMovie: null,
+        timeMove: null,
         moviesDates: [],
         moviesTimes: []
       }
     },
     methods: {
       bookStep2() {
-        this.$router.push({ name: 'BookStep2'});
+        this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
+      },
+      getURL(URL) {
+        return 'https://cors-anywhere.herokuapp.com/'+URL
       },
       async getMovies() {
         try {
-          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-              targetUrl = 'https://mtb-admin.herokuapp.com/api/list_movies'
-          const response = await fetch(proxyUrl + targetUrl)
+          const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/list_movies'))
           const data = await response.json()
           this.movies = data
         } catch (error) {
@@ -152,42 +155,41 @@
       async myFilter(id) {
         this.isActive = id
       },
+      async myTime(id) {
+        this.isTimeMove = id
+      },
+      myNameTime(time) {
+        this.timeMove = time
+      },
       async myNameMovie(name) {
         this.isNameMovie = name
       },
       async getMovieDate(id) {
         try {
-          // if (id != null) {
-          //   this.isActive = id
-            var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-              targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
-            const response = await fetch(proxyUrl + targetUrl)
+            const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id))
             const data = await response.json()
             this.moviesDates = data
-          // }
         } catch (error) {
           this.errors.push(error)
         }
       },
       async getMovieTime(id) {
         try {
-          // if (id != null) {
-            // this.isActive = id
             var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
               targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
             const response = await fetch(proxyUrl + targetUrl)
             const data = await response.json()
             this.moviesTimes = data
-          // }
         } catch (error) {
           this.errors.push(error)
         }
       },
+      getImgae(image){
+        return 'https://mtb-admin.herokuapp.com'+image;
+      }
     },
     mounted() {
       this.getMovies()
-      // this.getMovieDate(this.isActive),
-      // this.getMovieTime(this.isActive)
     }
   }
 </script>

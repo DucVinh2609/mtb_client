@@ -375,21 +375,21 @@
     },
     methods: {
       async getMovieDetail() {
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$router.params.id
-        this.axios.get(proxyUrl + targetUrl).then((response)=>{
-          this.moviesDetail=response.data;
-        });
-
-        // try {
-        //   var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+        // var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
         //     targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-        //   const response = await fetch(proxyUrl + targetUrl)
-        //   const data = await response.json()
-        //   this.moviesDetail = data
-        // } catch (error) {
-        //   this.errors.push(error)
-        // }
+        // this.axios.get(proxyUrl + targetUrl).then((response)=>{
+        //   this.moviesDetail=response.data;
+        // });
+
+        try {
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+          const response = await fetch(proxyUrl + targetUrl)
+          const data = await response.json()
+          this.moviesDetail = data
+        } catch (error) {
+          this.errors.push(error)
+        }
       },
       async getMovieDate() {
         try {

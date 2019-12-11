@@ -100,7 +100,7 @@ export default new Router({
       component: BookStep1
     },
     {
-      path: '/booking-step-2',
+      path: '/booking-step-2/:id',
       name: 'BookStep2',
       component: BookStep2
     },
