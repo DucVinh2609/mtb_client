@@ -62,7 +62,7 @@
                 <div class="sits__row" v-for="row in rows" v-bind:key="row.id">
                   <span v-for="column in columns" v-bind:key="column.id">
                     <span v-if="checkSeatIsAcitive(row, column) === true" class="sits__place sits-price--middle" >{{ row }}{{ column }}</span>
-                    <span v-else class="sits__place sits-price--cheap" @click="yourSeatChooses(row, column)" v-bind:class="{'sits-state--your': activeSeat == row+column}">{{ row }}{{ column }}</span>
+                    <span v-else class="sits__place sits-price--cheap" @click="yourSeatChooses(row, column)" v-bind:class="[activeSeat ? ( (activeChoose === row+column) ? stateYour : '') : '']">{{ row }}{{ column }}</span>
                   </span>
                 </div>
                 <aside class="sits__checked">
@@ -134,7 +134,9 @@
           errors: [],
           seats: [],
           seatChooses: [],
-          activeSeat: null
+          activeSeat: false,
+          activeChoose: null,
+          stateYour: 'sits-state--your'
         }
       },
       methods: {
@@ -180,19 +182,30 @@
           return (jQuery.inArray(row+column, this.seats) !== -1 ) ? true : false
         },
         yourSeatChooses(row, column) {
-          for (var i = 0; i <= this.seatChooses.length ; i++) {
-            if (jQuery.inArray(row+column, this.seats) !== -1) {
-              this.seatChooses.splice(row+column, 1)
-              return this.activeSeat = false
-            } else {
-              this.seatChooses.push(row+column)
-              return this.activeSeat = row+column
-            }
+          if ($.inArray(row+column, this.seats) !== -1) {
+            this.seatChooses = this.seatChooses.filter( function(list_item) {
+              return list_item !=row+column
+            })
+          } else {
+            this.seatChooses.push(row+column)
           }
 
-          // console.log(this.seatChooses)
-          // return activeSeat
-          // console.log(this.seatChooses)
+          // for (var i = 0; i <= this.seatChooses.length ; i++) {
+          //   console.log(this.seatChooses[i])
+          //   console.log(row+column)
+          //   console.log($.inArray(row+column, this.seats) )
+          //   if ($.inArray(row+column, this.seats) !== -1) {
+          //     this.seatChooses = jQuery.grep(this.seatChooses, function(value) {
+          //       return value != row+column;
+          //     });
+          //     // this.seatChooses.splice(row+column, 1)
+          //     return this.activeSeat = false
+          //   } else {
+          //     this.seatChooses.push(row+column)
+          //     this.activeChoose = row+column
+          //     return this.activeSeat = true
+          //   }
+          // }
         }
       },
       mounted() {
