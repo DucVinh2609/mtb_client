@@ -36,9 +36,7 @@
             <ul>
               <li class="sits-price marker--none"><strong>Price</strong>
               </li>
-              <li class="sits-price sits-price--cheap">$10</li>
-              <li class="sits-price sits-price--middle">$20</li>
-              <li class="sits-price sits-price--expensive">$30</li>
+              <li class="sits-price sits-price--cheap">$45</li>
             </ul>
           </div>
 
@@ -62,15 +60,15 @@
                 <div class="sits__row" v-for="row in rows" v-bind:key="row.id">
                   <span v-for="column in columns" v-bind:key="column.id">
                     <span v-if="checkSeatIsAcitive(row, column) === true" class="sits__place sits-price--middle" >{{ row }}{{ column }}</span>
-                    <span v-else class="sits__place sits-price--cheap" @click="yourSeatChooses(row, column)" v-bind:class="{'sits-state--your': activeSeat == row+column}">{{ row }}{{ column }}</span>
+                    <span v-else class="sits__place sits-price--cheap" @click="yourSeatChooses(row, column)" v-bind:class="{'sits-state--your': checkYourSeatAcitive(row, column) == true }">{{ row }}{{ column }}</span>
                   </span>
                 </div>
                 <aside class="sits__checked">
                   <div class="checked-place">
-
+                    <span v-for="seatChoose in seatChooses" v-bind:key="seatChoose.id" class="choosen-place">{{ seatChoose }}</span>
                   </div>
                   <div class="checked-result">
-                    $0
+                    ${{ total }}
                   </div>
                 </aside>
                 <footer class="sits__number">
@@ -134,7 +132,9 @@
           errors: [],
           seats: [],
           seatChooses: [],
-          activeSeat: null
+          activeSeat: false,
+          activeChoose: null,
+          total: null
         }
       },
       methods: {
@@ -164,7 +164,7 @@
           })
         },
         async getSeatAcitve() {
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/seat_was_booked/25'))
+          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/seat_was_booked/'+this.$route.params.id))
           .then(response => {
             const data  = response.data
             data.forEach(element => {
@@ -180,20 +180,19 @@
           return (jQuery.inArray(row+column, this.seats) !== -1 ) ? true : false
         },
         yourSeatChooses(row, column) {
-          for (var i = 0; i <= this.seatChooses.length ; i++) {
-            if (jQuery.inArray(row+column, this.seats) !== -1) {
-              this.seatChooses.splice(row+column, 1)
-              return this.activeSeat = false
-            } else {
-              this.seatChooses.push(row+column)
-              return this.activeSeat = row+column
-            }
+          if (jQuery.inArray(row+column, this.seatChooses) !== -1) {
+            this.seatChooses = this.seatChooses.filter( function(list_item) {
+              return list_item !=row+column
+            })
+          } else {
+            this.seatChooses.push(row+column)
           }
-
-          // console.log(this.seatChooses)
-          // return activeSeat
-          // console.log(this.seatChooses)
-        }
+          this.total = (this.seatChooses.length > 0) ? this.seatChooses.length*45 : 0
+          console.log(this.seatChooses)
+        },
+        checkYourSeatAcitive(row, column) {
+          return (jQuery.inArray(row+column, this.seatChooses) !== -1 ) ? true : false
+        },
       },
       mounted() {
         this.getRoom(),
