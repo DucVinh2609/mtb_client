@@ -801,12 +801,12 @@ table {
   z-index: 100;
 }
 .top-scroll a {
-  background: url("../images/components/arrow.svg") repeat scroll center center rgba(76, 65, 69, 0.8);
+  background: url(/src/assets/images/components/arrow.svg) repeat scroll center center rgba(76, 65, 69, 0.8);
   display: block;
   height: 50px;
 }
 .top-scroll a:hover {
-  background: url("../images/components/arrow.svg") repeat scroll center center rgba(254, 80, 90, 0.8);
+  background: url(/src/assets/images/components/arrow.svg) repeat scroll center center rgba(254, 80, 90, 0.8);
 }
 .inv-em {
   top: -5px;
@@ -4262,7 +4262,7 @@ ul#navigation a:hover {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/left-arrow.svg);
+  background-image: url("../assets/icons/left-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -4317,7 +4317,7 @@ ul#navigation a:hover {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/right-arrow.svg);
+  background-image: url("../assets/icons/right-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -4714,7 +4714,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 11px;
 }
 .ui-datepicker .ui-datepicker-prev .ui-icon {
-  background-image: url(../images/icons/sm-left-arrow.svg);
+  background-image: url("../assets/icons/sm-left-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -4728,7 +4728,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 11px;
 }
 .ui-datepicker .ui-datepicker-prev:hover .ui-icon {
-  background-image: url(../images/icons/sm-left-arrow-hover.svg);
+  background-image: url("../assets/icons/sm-left-arrow-hover.svg");
   border: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -4745,7 +4745,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 11px;
 }
 .ui-datepicker .ui-datepicker-next .ui-icon {
-  background-image: url(../images/icons/sm-right-arrow.svg);
+  background-image: url("../assets/icons/sm-right-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -4759,7 +4759,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 11px;
 }
 .ui-datepicker .ui-datepicker-next:hover .ui-icon {
-  background-image: url(../images/icons/sm-right-arrow-hover.svg);
+  background-image: url("../assets/icons/sm-right-arrow-hover.svg");
 }
 .ui-datepicker th {
   font-family: 'museo_sans500';
@@ -5054,13 +5054,13 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   display: inline-block;
   padding: 8px 0 9px 43px;
   margin-left: -8px;
-  background-image: url(../images/icons/left-arrow-dark.svg);
+  background-image: url("../assets/icons/left-arrow-dark.svg");
   background-repeat: no-repeat;
   background-position: left center;
 }
 .pagination .pagination__prev:hover {
   color: #fe505a;
-  background-image: url(../images/icons/left-arrow-danger.svg);
+  background-image: url("../assets/icons/left-arrow-danger.svg");
   background-position: 0 50%;
 }
 .pagination .pagination__next {
@@ -5071,13 +5071,13 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   display: inline-block;
   padding: 8px 43px 9px 0;
   margin-right: -8px;
-  background-image: url(../images/icons/right-arrow-dark.svg);
+  background-image: url("../assets/icons/right-arrow-dark.svg");
   background-repeat: no-repeat;
   background-position: right center;
 }
 .pagination .pagination__next:hover {
   color: #fe505a;
-  background-image: url(../images/icons/right-arrow-danger.svg);
+  background-image: url("../assets/icons/right-arrow-danger.svg");
 }
 .booking-pagination {
   text-align: center;
@@ -6284,7 +6284,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   margin-left: -50px;
 }
 .choose-film .swiper-slide:hover {
-  cursor: url(../images/components/cursor.png), auto;
+  cursor: url(src/assets/images/components/cursor.png), auto;
 }
 .choose-indector {
   position: relative;
@@ -6642,7 +6642,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .reservation-message:before {
   content: '';
-  background-image: url(../images/icons/speech.svg);
+  background-image: url("../assets/icons/speech.svg");
   background-repeat: no-repeat;
   background-position: left center;
   -webkit-background-size: 42px 36px;
@@ -6667,7 +6667,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   margin-top: 68px;
   padding: 37px 0;
   text-align: center;
-  background-image: url(../images/icons/stroke.svg);
+  background-image: url("../assets/icons/stroke.svg");
   background-repeat: no-repeat;
 }
 .ticket .ticket__inner {
@@ -6693,7 +6693,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .ticket .indecator-text:before {
   content: '';
-  background-image: url(../images/icons/stars-light.svg);
+  background-image: url("../assets/icons/stars-light.svg");
   background-repeat: no-repeat;
   width: 80px;
   height: 16px;
@@ -6703,7 +6703,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .ticket .indecator-text:after {
   content: '';
-  background-image: url(../images/icons/stars-light.svg);
+  background-image: url("../assets/icons/stars-light.svg");
   background-repeat: no-repeat;
   width: 80px;
   height: 16px;
@@ -6827,7 +6827,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/left-arrow.svg);
+  background-image: url("../assets/icons/left-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -6901,7 +6901,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/right-arrow.svg);
+  background-image: url("../assets/icons/right-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -6984,7 +6984,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/left-arrow.svg);
+  background-image: url("../assets/icons/left-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -7039,7 +7039,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url(../images/icons/right-arrow.svg);
+  background-image: url("../assets/icons/right-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -7239,7 +7239,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .movie-best .movie-best__rating:before {
   content: "";
-  background-image: url("../images/icons/stars.svg");
+  background-image: url("../assets/stars.svg");
   background-repeat: no-repeat;
   height: 20px;
   left: 50%;
@@ -7250,7 +7250,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .movie-best .movie-best__rating:after {
   content: "";
-  background-image: url("../images/icons/stars.svg");
+  background-image: url("../assets/stars.svg");
   background-repeat: no-repeat;
   height: 20px;
   margin-right: -205px;
@@ -7277,7 +7277,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   content: '';
   width: 20px;
   height: 55px;
-  background-image: url(../images/icons/mause.svg);
+  background-image: url("../assets/mause.svg");
   background-repeat: no-repeat;
   position: absolute;
   top: 2px;
@@ -7467,27 +7467,27 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   z-index: -1;
 }
 .mega-select-marker .location:before {
-  background-image: url(../images/icons/location.svg);
+  background-image: url(../assets/icons/location.svg);
 }
 .mega-select-marker .cinema:before {
-  background-image: url(../images/icons/camera.svg);
+  background-image: url(../assets/icons/camera.svg);
   width: 200px;
   margin-left: -20px;
 }
 .mega-select-marker .film-category:before {
-  background-image: url(../images/icons/fiml.svg);
+  background-image: url(../assets/icons/fiml.svg);
 }
 .mega-select-marker .actors:before {
-  background-image: url(../images/icons/actors.svg);
+  background-image: url(../assets/icons/actors.svg);
   width: 200px;
   margin-left: -100px;
 }
 .mega-select-marker .director:before {
-  background-image: url(../images/icons/director.svg);
+  background-image: url("../assets/icons/director.svg");
   top: -25px;
 }
 .mega-select-marker .country:before {
-  background-image: url(../images/icons/country.svg);
+  background-image: url("../assets/icons/country.svg");
 }
 .mega-select-top {
   padding-top: 72px;
@@ -7562,25 +7562,25 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   margin-left: 15px;
 }
 .social-group .twitter-group #twitter-actions #intent-reply {
-  background-image: url(../images/icons/reply.svg);
+  background-image: url("../assets/icons/reply.svg");
   background-repeat: no-repeat;
 }
 .social-group .twitter-group #twitter-actions #intent-reply:hover {
-  background-image: url(../images/icons/reply-hover.svg);
+  background-image: url("../assets/icons/reply-hover.svg");
 }
 .social-group .twitter-group #twitter-actions #intent-retweet {
-  background-image: url(../images/icons/retweet.svg);
+  background-image: url("../assets/icons/retweet.svg");
   background-repeat: no-repeat;
 }
 .social-group .twitter-group #twitter-actions #intent-retweet:hover {
-  background-image: url(../images/icons/retweet-hover.svg);
+  background-image: url("../assets/icons/retweet-hover.svg");
 }
 .social-group .twitter-group #twitter-actions #intent-fave {
-  background-image: url(../images/icons/fave.svg);
+  background-image: url("../assets/icons/fave.svg");
   background-repeat: no-repeat;
 }
 .social-group .twitter-group #twitter-actions #intent-fave:hover {
-  background-image: url(../images/icons/fave-hover.svg);
+  background-image: url("../assets/icons/fave-hover.svg");
 }
 .social-group .twitter-group .twitter-text .tweet-time {
   bottom: auto;
@@ -8114,13 +8114,13 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   left: 21px;
 }
 .category--popular:before {
-  background-image: url(../images/icons/heart.svg);
+  background-image: url("../assets/icons/heart.svg");
 }
 .category--discuss:before {
-  background-image: url(../images/icons/comment.svg);
+  background-image: url("../assets/icons/comment.svg");
 }
 .category--cooming:before {
-  background-image: url(../images/icons/film.svg);
+  background-image: url("../assets/icons/film.svg");
 }
 .category--count {
   color: #ffffff;
@@ -8546,7 +8546,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .cinema--full .cinema__rating:before {
   content: '';
-  background-image: url(../images/icons/stars.svg);
+  background-image: url("../assets/icons/stars.svg");
   background-repeat: no-repeat;
   width: 95px;
   height: 20px;
@@ -8557,7 +8557,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .cinema--full .cinema__rating:after {
   content: '';
-  background-image: url(../images/icons/stars.svg);
+  background-image: url("../assets/icons/stars.svg");
   background-repeat: no-repeat;
   width: 95px;
   height: 20px;
@@ -8597,7 +8597,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   transition: 0.3s;
 }
 .cinema--full .cinema__gallery .swiper-slide:hover {
-  cursor: url(../images/components/cursor.png), auto;
+  cursor: url(../src/images/components/cursor.png), auto;
 }
 .cinema--full .cinema__gallery .swiper-slide:hover:before {
   opacity: 0;
@@ -8618,34 +8618,34 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   background-position: 50% 7px;
 }
 .offer--winter {
-  background-image: url(../images/icons/snow-dark.svg);
+  background-image: url("../assets/icons/snow-dark.svg");
 }
 .offer--family {
-  background-image: url(../images/icons/users-dark.svg);
+  background-image: url("../assets/icons/users-dark.svg");
 }
 .offer--day {
-  background-image: url(../images/icons/wizard-dark.svg);
+  background-image: url("../assets/icons/wizard-dark.svg");
 }
 .offer--teen {
-  background-image: url(../images/icons/smile-dark.svg);
+  background-image: url("../assets/icons/smile-dark.svg");
 }
 .offer--gift {
-  background-image: url(../images/icons/gift-dark.svg);
+  background-image: url("../assets/icons/gift-dark.svg");
 }
 .offer--winter:hover {
-  background-image: url(../images/icons/snow-light.svg);
+  background-image: url("../assets/icons/snow-light.svg");
 }
 .offer--family:hover {
-  background-image: url(../images/icons/users-light.svg);
+  background-image: url("../assets/icons/users-light.svg");
 }
 .offer--day:hover {
-  background-image: url(../images/icons/wizard-light.svg);
+  background-image: url("../assets/icons/wizard-light.svg");
 }
 .offer--teen:hover {
-  background-image: url(../images/icons/smile-light.svg);
+  background-image: url("../assets/icons/smile-light.svg");
 }
 .offer--gift:hover {
-  background-image: url(../images/icons/gift-light.svg);
+  background-image: url("../assets/icons/gift-light.svg");
 }
 .gallery-item .gallery-item--video:before,
 .gallery-item .gallery-item--video-link:before {

@@ -1,0 +1,194 @@
+<template>
+  <div class="wrapper">
+    <!-- Banner -->
+    <div class="banner-top">
+      <img alt="top banner" src="../../assets/images/banners/bra.jpg" />
+    </div>
+
+    <!-- Header section -->
+    <Header></Header>
+
+    <!-- Search bar -->
+    <!-- <Search></Search> -->
+    <!-- Main content -->
+
+    <section class="container">
+      <div class="order-container">
+        <div class="order">
+          <img class="order__images" alt src="../../assets/images/tickets.png" />
+          <p class="order__title">
+            Book a ticket
+            <br />
+            <span class="order__descript">and have fun movie time</span>
+          </p>
+          <div class="order__control">
+            <a href="#" class="order__control-btn active">Purchase</a>
+            <a href="#" class="order__control-btn">Reserve</a>
+          </div>
+        </div>
+      </div>
+      <div class="order-step-area">
+        <div class="order-step first--step">1. What &amp; Where &amp; When</div>
+      </div>
+
+      <h2 class="page-heading heading--outcontainer">Choose a movie</h2>
+    </section>
+
+    <div class="choose-film">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <!--First Slide-->
+          <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
+            <div class="film-images  " @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
+              <img alt src="../../assets/images/movie/movie-sample1.jpg" />
+            </div>
+            <p class="choose-film__title">{{ movie.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="container" v-if="isNameMovie != null">
+      <div class="col-sm-12">
+        <div class="choose-indector choose-indector--film">
+          <strong>Choosen:</strong>
+          <span class="choosen-area">{{ isNameMovie }}</span>
+        </div>
+<h2 class="page-heading heading--outcontainer">Choose a Time</h2>
+        <div class="ime-select--wide">
+          <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
+        </div>
+
+        <div class="choose-indector choose-indector--time">
+          <strong>Choosen:</strong>
+          <span class="choosen-area"></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="clearfix"></div>
+
+    <form id="film-and-time" class="booking-form" method="get" action="book2.html">
+      <input type="text" name="choosen-movie" class="choosen-movie" />
+
+      <input type="text" name="choosen-city" class="choosen-city" />
+      <input type="text" name="choosen-date" class="choosen-date" />
+
+      <input type="text" name="choosen-cinema" class="choosen-cinema" />
+      <input type="text" name="choosen-time" class="choosen-time" />
+
+      <div class="booking-pagination">
+        <a href="#" class="booking-pagination__prev hide--arrow">
+          <span class="arrow__text arrow--prev"></span>
+          <span class="arrow__info"></span>
+        </a>
+        <a @click="bookStep2()" class="booking-pagination__next">
+          <span class="arrow__text arrow--next">next step</span>
+          <span class="arrow__info">choose a sit</span>
+        </a>
+      </div>
+    </form>
+
+    <div class="clearfix"></div>
+
+    <Footer></Footer>
+  </div>
+</template>
+
+<script>
+  $(document).ready(function () {
+    //initialize swiper when document ready
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 8,
+      spaceBetween: 30,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  });
+</script>
+<script>
+  import Header from '@/components/common/Header.vue'
+  import ModalSignin from '@/components/common/ModalSignin.vue'
+  import Footer from '@/components/common/Footer.vue'
+  import TimeMovie from '@/components/movie/TimeMovie.vue'
+  import Search from '@/components/common/Search.vue'
+  import axios from 'axios'
+  import router from '@/router/index'
+
+  export default {
+    components: {
+      Header,
+      ModalSignin,
+      Footer,
+      TimeMovie
+    },
+    data() {
+      return {
+        movies: [],
+        errors: [],
+        isActive: null,
+        isNameMovie: null,
+        moviesDates: [],
+        moviesTimes: []
+      }
+    },
+    methods: {
+      bookStep2() {
+        this.$router.push({ name: 'BookStep2'});
+      },
+      async getMovies() {
+        try {
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+              targetUrl = 'https://mtb-admin.herokuapp.com/api/list_movies'
+          const response = await fetch(proxyUrl + targetUrl)
+          const data = await response.json()
+          this.movies = data
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
+      async myFilter(id) {
+        this.isActive = id
+      },
+      async myNameMovie(name) {
+        this.isNameMovie = name
+      },
+      async getMovieDate(id) {
+        try {
+          // if (id != null) {
+          //   this.isActive = id
+            var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+              targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
+            const response = await fetch(proxyUrl + targetUrl)
+            const data = await response.json()
+            this.moviesDates = data
+          // }
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
+      async getMovieTime(id) {
+        try {
+          // if (id != null) {
+            // this.isActive = id
+            var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+              targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
+            const response = await fetch(proxyUrl + targetUrl)
+            const data = await response.json()
+            this.moviesTimes = data
+          // }
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
+    },
+    mounted() {
+      this.getMovies()
+      // this.getMovieDate(this.isActive),
+      // this.getMovieTime(this.isActive)
+    }
+  }
+</script>
+
