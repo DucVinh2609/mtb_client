@@ -96,7 +96,8 @@
             <span class="arrow__text arrow--prev">prev step</span>
             <span class="arrow__info">what&amp;where&amp;when</span>
         </a>
-        <a @click="bookStep3()" class="booking-pagination__next">
+
+        <a v-if="seatChooses != null" @click="bookStep3()" class="booking-pagination__next">
             <span class="arrow__text arrow--next">next step</span>
             <span class="arrow__info">checkout</span>
         </a>

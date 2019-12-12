@@ -63,7 +63,7 @@
                 <p class="time-select__place">{{ moviesDate.showtime | formatDate }}</p>
               </div>
               <ul class="col-sm-8 items-wrap">
-                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id), myNameTime(moviesTime.showtime)" v-bind:class="{ active: id === isTimeMove }">
+                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id), myNameTime(moviesTime.time)" v-bind:class="{ active: id === isTimeMove }">
                   {{ moviesTime.time | formatTime }}
                 </li>
               </ul>
@@ -131,7 +131,7 @@
         isActive: null,
         isTimeMove: null,
         isNameMovie: null,
-        timeMove: null,
+        timeMove: '',
         moviesDates: [],
         moviesTimes: []
       }
