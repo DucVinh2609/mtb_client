@@ -140,6 +140,8 @@
     methods: {
       bookStep2() {
         localStorage['idRoom'] = this.idRoomMovie;
+        localStorage['idTimeMovie'] = this.isTimeMove;
+        localStorage['idMovie'] = this.isActive;
         this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
       },
       getURL(URL) {
