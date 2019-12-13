@@ -153,7 +153,6 @@
         async getRoom() {
           var index = 65
           var idRoom = localStorage.getItem('idRoom');
-          // localStorage.clear();
           console.log(idRoom)
           axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/max_row_seat/'+idRoom))
           .then(response => {
