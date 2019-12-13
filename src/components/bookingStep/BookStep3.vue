@@ -34,7 +34,10 @@
       </div>
 
       <div class="col-sm-12">
-        <div class="checkout-wrapper">
+        
+
+      <!-- <form novalidate class="form contact-info"> -->
+        <div class="form contact-info checkout-wrapper">  
           <h2 class="page-heading">price</h2>
           <ul class="book-result">
             <li class="book-result__item">
@@ -77,20 +80,24 @@
           </div>
 
           <h2 class="page-heading">Contact information</h2>
-
-          <form id="contact-info" method="post" novalidate class="form contact-info">
+            <p v-if="errors.length">
+              <b>Please correct the following error(s):</b>
+              <ul>
+                <li v-for="error in errors" v-bind:key="error.id">{{ error }}</li>
+              </ul>
+            </p>
             <div class="contact-info__field contact-info__field-mail">
-              <input type="email" name="user-mail" placeholder="Your email" class="form__mail" />
+              <input type="text" v-model="email" id="email" name="email" placeholder="Your email" class="form__mail" />
             </div>
             <div class="contact-info__field contact-info__field-tel">
-              <input type="tel" name="user-tel" placeholder="Phone number" class="form__mail" />
+              <input type="text" v-model="tel" id="tel" name="tel" placeholder="Phone number" class="form__mail" />
             </div>
-          </form>
-        </div>
+        </div>  
 
         <div class="order">
-          <a href="book-final.html" class="btn btn-md btn--warning btn--wide">purchase</a>
+          <button @click="bookForm()" class="btn btn-md btn--warning" placeholder="">purchase</button>
         </div>
+          <!-- </form> -->
       </div>
     </section>
 
@@ -119,6 +126,7 @@
   import Footer from '@/components/common/Footer.vue'
   import Search from '@/components/common/Search.vue'
   import TimeMovie from '@/components/movie/TimeMovie.vue'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -130,14 +138,72 @@
     },
     data() {
       return {
-        totalSeat: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length : ''
+        idRoom: localStorage.getItem('idRoom') ? localStorage.getItem('idRoom') : '0',
+        seatChooses: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses') : '',
+        totalSeat: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length : '',
+        idShowing: localStorage.getItem('idTimeMovie') ? localStorage.getItem('idTimeMovie') : '0',
+        idMovie: localStorage.getItem('idMovie') ? localStorage.getItem('idMovie') : '0',
+        email: null,
+        tel: null,
+        errors: []
       }
     },
     methods: {
+        getURL(URL) {
+          return 'https://cors-anywhere.herokuapp.com/'+URL
+        },
+        bookForm: function() {
+          this.errors = []
 
+          if (this.validate() > 0) {
+            return this.errors;
+          } else {
+          const price = this.totalSeat*45000
+        // axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/add_tickets'), {
+          axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
+            showing_id: this.idShowing,
+            room_id: this.idRoom,
+            username: "no",
+            event_id: null,
+            unitprice: 45000,
+            seats: this.seatChooses,
+            movie_id: this.idMovie,
+            price: price,
+            gmail: this.email
+          })
+          .then(function (response) {
+            console.log( response.data)
+          })
+          .catch(function (error) {
+            this.errors.push(error)
+          });
+          }
+      },
+      validate () {
+        this.tel = document.getElementById('tel').value
+        this.email = document.getElementById('email').value
+        if (!this.tel) {
+          this.errors.push("Phone required.");
+        }
+        if (!this.email) {
+          this.errors.push('Email required.');
+        } else if (!this.validEmail(this.email)) {
+          this.errors.push('Valid email required.');
+        }
+
+        return this.errors.length
+      },
+      validEmail (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      },
       bookStep2() {
         this.$router.push({ name: 'BookStep2'});
       }
+    },
+    
+    mounted() {
+      // this.bookForm()
     }
   }
 </script>
