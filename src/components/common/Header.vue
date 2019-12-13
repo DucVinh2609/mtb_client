@@ -143,7 +143,7 @@
 
       <!-- Additional header buttons / Auth and direct link to booking-->
       <div class="control-panel">
-        <div class="auth auth--home">
+        <!-- <div class="auth auth--home">
           <div class="auth__show">
             <span class="auth__image">
               <img alt src="../../assets/images/client-photo/auth.png" />
@@ -164,7 +164,8 @@
               <a href="#" class="auth__function-item">Settings</a>
             </li>
           </ul>
-        </div>
+        </div> -->
+        <a href="#" class="btn btn--sign login-window">Sign in</a>
         <a @click="bookStep1()" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
       </div>
     </div>

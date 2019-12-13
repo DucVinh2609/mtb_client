@@ -63,7 +63,7 @@
                 <p class="time-select__place">{{ moviesDate.showtime | formatDate }}</p>
               </div>
               <ul class="col-sm-8 items-wrap">
-                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id), myNameTime(moviesTime.showtime)" v-bind:class="{ active: id === isTimeMove }">
+                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id, moviesTime.room_id), myNameTime(moviesTime.time)" v-bind:class="{ active: id === isTimeMove }">
                   {{ moviesTime.time | formatTime }}
                 </li>
               </ul>
@@ -131,13 +131,15 @@
         isActive: null,
         isTimeMove: null,
         isNameMovie: null,
-        timeMove: null,
+        timeMove: '',
         moviesDates: [],
-        moviesTimes: []
+        moviesTimes: [],
+        idRoomMovie: null
       }
     },
     methods: {
       bookStep2() {
+        localStorage['idRoom'] = this.idRoomMovie;
         this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
       },
       getURL(URL) {
@@ -155,8 +157,10 @@
       async myFilter(id) {
         this.isActive = id
       },
-      async myTime(id) {
+      async myTime(id, idRoom) {
         this.isTimeMove = id
+        this.idRoomMovie = idRoom
+        console.log(this.idRoomMovie)
       },
       myNameTime(time) {
         this.timeMove = time
