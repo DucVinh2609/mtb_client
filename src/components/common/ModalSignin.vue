@@ -1,6 +1,6 @@
 <template>
   <!-- open/close -->
-  <div class="overlay overlay-hugeinc">
+  <div class="overlay overlay-hugeinc ">
     <section class="container">
       <div class="col-sm-4 col-sm-offset-4">
         <button type="button" class="overlay-close">Close</button>

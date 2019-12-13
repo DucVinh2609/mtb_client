@@ -39,15 +39,15 @@
           <ul class="book-result">
             <li class="book-result__item">
               Tickets:
-              <span class="book-result__count booking-ticket">3</span>
+              <span class="book-result__count booking-ticket">{{ totalSeat }}</span>
             </li>
             <li class="book-result__item">
               One item price:
-              <span class="book-result__count booking-price">$20</span>
+              <span class="book-result__count booking-price">$45</span>
             </li>
             <li class="book-result__item">
               Total:
-              <span class="book-result__count booking-cost">$60</span>
+              <span class="book-result__count booking-cost">${{ totalSeat*45 }}</span>
             </li>
           </ul>
 
@@ -128,7 +128,13 @@
         TimeMovie,
         Search
     },
+    data() {
+      return {
+        totalSeat: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length : ''
+      }
+    },
     methods: {
+
       bookStep2() {
         this.$router.push({ name: 'BookStep2'});
       }
