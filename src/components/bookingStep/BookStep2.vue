@@ -96,7 +96,8 @@
             <span class="arrow__text arrow--prev">prev step</span>
             <span class="arrow__info">what&amp;where&amp;when</span>
         </a>
-        <a @click="bookStep3()" class="booking-pagination__next">
+
+        <a v-if="seatChooses != null" @click="bookStep3()" class="booking-pagination__next">
             <span class="arrow__text arrow--next">next step</span>
             <span class="arrow__info">checkout</span>
         </a>
@@ -142,6 +143,8 @@
           this.$router.push({ name: 'BookStep1'});
         },
         bookStep3() {
+          localStorage['seatChooses'] = this.seatChooses;
+          localStorage['idTimeMovie'] = this.$route.params.id;
           this.$router.push({ name: 'BookStep3'});
         },
         getURL(URL) {
@@ -149,8 +152,10 @@
         },
         async getRoom() {
           var index = 65
-
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/max_row_seat/1'))
+          var idRoom = localStorage.getItem('idRoom');
+          // localStorage.clear();
+          console.log(idRoom)
+          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/max_row_seat/'+idRoom))
           .then(response => {
             const data  = response.data
             this.columns = data[0]['max_seat_row']
