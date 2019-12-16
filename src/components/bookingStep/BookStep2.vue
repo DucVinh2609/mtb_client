@@ -147,14 +147,14 @@
           localStorage['idTimeMovie'] = this.$route.params.id;
           this.$router.push({ name: 'BookStep3'});
         },
-        getURL(URL) {
-          return 'https://cors-anywhere.herokuapp.com/'+URL
-        },
+        // getURL(URL) {
+        //   return 'https://cors-anywhere.herokuapp.com/'+URL
+        // },
         async getRoom() {
           var index = 65
           var idRoom = localStorage.getItem('idRoom');
           console.log(idRoom)
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/max_row_seat/'+idRoom))
+          axios.get('http://localhost:5000/api/max_row_seat/'+idRoom)
           .then(response => {
             const data  = response.data
             this.columns = data[0]['max_seat_row']
@@ -168,7 +168,7 @@
           })
         },
         async getSeatAcitve() {
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/seat_was_booked/'+this.$route.params.id))
+          axios.get('http://localhost:5000/api/seat_was_booked/'+this.$route.params.id)
           .then(response => {
             const data  = response.data
             data.forEach(element => {

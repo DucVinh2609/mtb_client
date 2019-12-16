@@ -149,9 +149,9 @@
       }
     },
     methods: {
-        getURL(URL) {
-          return 'https://cors-anywhere.herokuapp.com/'+URL
-        },
+        // getURL(URL) {
+        //   return 'https://cors-anywhere.herokuapp.com/'+URL
+        // },
         bookForm: function() {
           this.errors = []
 
@@ -159,7 +159,7 @@
             return this.errors;
           } else {
           const price = this.totalSeat*10
-          axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/add_tickets'), {
+          axios.post('http://localhost:5000/api/add_tickets', {
           // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
             showing_id: this.idShowing,
             room_id: this.idRoom,

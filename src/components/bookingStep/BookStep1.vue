@@ -36,7 +36,7 @@
 
     <div class="choose-film">
       <div class="swiper-container">
-        <div class="swiper-wrapper" style="text-align: center;">
+        <div class="swiper-wrapper">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
             <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
@@ -144,12 +144,12 @@
         localStorage['idMovie'] = this.isActive;
         this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
       },
-      getURL(URL) {
-        return 'https://cors-anywhere.herokuapp.com/'+URL
-      },
+      // getURL(URL) {
+      //   return 'https://cors-anywhere.herokuapp.com/'+URL
+      // },
       async getMovies() {
         try {
-          const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/list_movies'))
+          const response = await fetch('http://localhost:5000/api/list_movies')
           const data = await response.json()
           this.movies = data
         } catch (error) {
@@ -172,7 +172,7 @@
       },
       async getMovieDate(id) {
         try {
-            const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/movie_detail_date/'+id))
+            const response = await fetch('http://localhost:5000/api/movie_detail_date/'+id)
             const data = await response.json()
             this.moviesDates = data
         } catch (error) {
@@ -182,8 +182,8 @@
       async getMovieTime(id) {
         try {
             var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-              targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
-            const response = await fetch(proxyUrl + targetUrl)
+              targetUrl = 'http://localhost:5000/api/movie_detail_time/'+id
+            const response = await fetch(targetUrl)
             const data = await response.json()
             this.moviesTimes = data
         } catch (error) {
@@ -191,7 +191,7 @@
         }
       },
       getImgae(image){
-        return 'https://mtb-admin.herokuapp.com'+image;
+        return 'http://localhost:5000'+image;
       }
     },
     mounted() {
