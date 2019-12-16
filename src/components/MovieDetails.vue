@@ -200,49 +200,14 @@
 
         <h2 class="page-heading">showtime &amp; tickets</h2>
         <div class="choose-container">
-          <form id="select" class="select" method="get">
-            <select name="select_item" id="select-sort" class="select__sort" tabindex="0">
-              <option value="1" selected="selected">London</option>
-              <option value="2">New York</option>
-              <option value="3">Paris</option>
-              <option value="4">Berlin</option>
-              <option value="5">Moscow</option>
-              <option value="3">Minsk</option>
-              <option value="4">Warsawa</option>
-              <option value="5">Kiev</option>
-            </select>
-          </form>
-
-          <div class="datepicker">
-            <span class="datepicker__marker">
-              <i class="fa fa-calendar"></i>Date
-            </span>
-            <input type="text" id="datepicker" value="03/10/2014" class="datepicker__input" />
-          </div>
-
-          <a href="#" id="map-switch" class="watchlist watchlist--map">
-            <span class="show-map">Show cinemas on map</span>
-            <span class="show-time">Show cinema time table</span>
-          </a>
 
           <div class="clearfix"></div>
           <!-- select TIME MOVIE -->
           <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie>
 
-          <!-- hiden maps with multiple locator-->
-          <div class="map">
-            <div id="cimenas-map"></div>
-          </div>
+          <h2 class="page-heading">comments</h2>
 
-          <h2 class="page-heading">comments (15)</h2>
-
-          <div class="comment-wrapper">
-            <form id="comment-form" class="comment-form" method="post">
-              <textarea class="comment-form__text" placeholder="Add you comment here"></textarea>
-              <label class="comment-form__info">250 characters left</label>
-              <button type="submit" class="btn btn-md btn--danger comment-form__btn">add comment</button>
-            </form>
-          </div>
+          <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="850" data-numposts="10"></div>
         </div>
       </div>
 
@@ -394,7 +359,7 @@
       async getMovieDate() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
+            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_date/'+this.$route.params.id
           const response = await fetch(proxyUrl + targetUrl)
           const data = await response.json()
           this.moviesDates = data

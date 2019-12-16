@@ -36,7 +36,7 @@
 
     <div class="choose-film">
       <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" style="text-align: center;">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
             <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
@@ -172,7 +172,7 @@
       },
       async getMovieDate(id) {
         try {
-            const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id))
+            const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/movie_detail_date/'+id))
             const data = await response.json()
             this.moviesDates = data
         } catch (error) {

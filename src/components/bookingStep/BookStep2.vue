@@ -36,7 +36,7 @@
             <ul>
               <li class="sits-price marker--none"><strong>Price</strong>
               </li>
-              <li class="sits-price sits-price--cheap">$45</li>
+              <li class="sits-price sits-price--cheap">$10</li>
             </ul>
           </div>
 
@@ -191,7 +191,7 @@
           } else {
             this.seatChooses.push(row+column)
           }
-          this.total = (this.seatChooses.length > 0) ? this.seatChooses.length*45 : 0
+          this.total = (this.seatChooses.length > 0) ? this.seatChooses.length*10 : 0
           console.log(this.seatChooses)
         },
         checkYourSeatAcitive(row, column) {

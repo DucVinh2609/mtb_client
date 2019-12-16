@@ -46,11 +46,11 @@
             </li>
             <li class="book-result__item">
               One item price:
-              <span class="book-result__count booking-price">$45</span>
+              <span class="book-result__count booking-price">$10</span>
             </li>
             <li class="book-result__item">
               Total:
-              <span class="book-result__count booking-cost">${{ totalSeat*45 }}</span>
+              <span class="book-result__count booking-cost">${{ totalSeat*10 }}</span>
             </li>
           </ul>
 
@@ -158,14 +158,14 @@
           if (this.validate() > 0) {
             return this.errors;
           } else {
-          const price = this.totalSeat*45000
-        // axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/add_tickets'), {
-          axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
+          const price = this.totalSeat*10
+          axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/add_tickets'), {
+          // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
             showing_id: this.idShowing,
             room_id: this.idRoom,
             username: "no",
             event_id: null,
-            unitprice: 45000,
+            unitprice: 10,
             seats: this.seatChooses,
             movie_id: this.idMovie,
             price: price,
