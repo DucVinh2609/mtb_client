@@ -165,7 +165,15 @@
             </li>
           </ul>
         </div> -->
-        <a href="#" class="btn btn--sign login-window">Sign in</a>
+        <a @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
+          <div v-if="signIn == show" class="overlay overlay-hugeinc open">
+            <section class="container">
+              <div class="col-sm-4 col-sm-offset-4">
+                <button @click="closeSignIn()" type="button" class="overlay-close">Close</button>
+                <ModalSignin></ModalSignin>
+              </div>
+            </section>
+          </div>
         <a @click="bookStep1()" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
       </div>
     </div>
@@ -174,11 +182,26 @@
 
 <script>
   import router from '@/router'
+  import ModalSignin from '@/components/common/ModalSignin.vue'
 
   export default {
+    components: {
+      ModalSignin
+    },
+    data() {
+      return {
+        show: false
+      }
+    },
     methods: {
       bookStep1() {
         this.$router.push({ name: 'BookStep1'});
+      },
+      signIn() {
+        this.show = true
+      },
+      closeSignIn() {
+        this.show = false
       }
     }
   }
