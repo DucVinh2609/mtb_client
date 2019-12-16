@@ -166,18 +166,38 @@
           </ul>
         </div> -->
         <a @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
-          <div v-if="signIn == show" class="overlay overlay-hugeinc open">
-            <section class="container">
-              <div class="col-sm-4 col-sm-offset-4">
-                <button @click="closeSignIn()" type="button" class="overlay-close">Close</button>
-                <ModalSignin></ModalSignin>
-              </div>
-            </section>
-          </div>
         <a @click="bookStep1()" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
+        <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': show === true }">
+          <section class="container">
+            <div class="col-sm-4 col-sm-offset-4">
+              <button @click="closeSignIn()" type="button" class="overlay-close">Close</button>
+                <div id="login-form" class="login" method="get" novalidate>
+                  <p class="login__title">
+                    sign in
+                    <br />
+                    <span class="login-edition">welcome to A.Movie</span>
+                  </p>
+
+                  <div class="field-wrap">
+                    <input type="email" v-model="email" id="email" placeholder="Email" name="user-email" class="login__input" />
+                    <input type="password" v-model="password" id="password" placeholder="Password" name="user-password" class="login__input" />
+
+                    <input id="#informed" class="login__check styled" />
+                    <label for="#informed" class="login__check-info"></label>
+                  </div>
+
+                  <div class="login__control">
+                    <button @click="loginForm()" class="btn btn-md btn--warning btn--wider">sign in</button>
+                    <a href="#" class="login__tracker form__tracker">Forgot password?</a>
+                  </div>
+                </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </header>
+  
 </template>
 
 <script>
@@ -190,7 +210,9 @@
     },
     data() {
       return {
-        show: false
+        show: false,
+        email: null,
+        password:null
       }
     },
     methods: {
@@ -202,6 +224,9 @@
       },
       closeSignIn() {
         this.show = false
+      },
+      loginForm() {
+        
       }
     }
   }
