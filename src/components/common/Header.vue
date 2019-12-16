@@ -2,7 +2,7 @@
   <header class="header-wrapper header-wrapper--home">
     <div class="container">
       <!-- Logo link-->
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img alt="logo" src="../../assets/images/logo.png" />
       </a>
 

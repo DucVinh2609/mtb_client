@@ -39,7 +39,7 @@
         <div class="swiper-wrapper">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
-            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
+            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id+1), getMovieTime(id+1)" v-bind:class="{ 'film--choosed': id === isActive }">
               <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
               <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
             </div>
@@ -63,7 +63,7 @@
                 <p class="time-select__place">{{ moviesDate.showtime | formatDate }}</p>
               </div>
               <ul class="col-sm-8 items-wrap">
-                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id, moviesTime.room_id), myNameTime(moviesTime.time)" v-bind:class="{ active: id === isTimeMove }">
+                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(moviesTime.id, moviesTime.room_id), myNameTime(moviesTime.time)" v-bind:class="{ active: moviesTime.id === isTimeMove }">
                   {{ moviesTime.time | formatTime }}
                 </li>
               </ul>
@@ -141,7 +141,7 @@
       bookStep2() {
         localStorage['idRoom'] = this.idRoomMovie;
         localStorage['idTimeMovie'] = this.isTimeMove;
-        localStorage['idMovie'] = this.isActive;
+        localStorage['idMovie'] = this.isActive+1;
         this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
       },
       // getURL(URL) {
@@ -163,6 +163,7 @@
         this.isTimeMove = id
         this.idRoomMovie = idRoom
         console.log(this.idRoomMovie)
+        console.log(this.isTimeMove)
       },
       myNameTime(time) {
         this.timeMove = time

@@ -158,7 +158,7 @@
           .then(response => {
             const data  = response.data
             this.columns = data[0]['max_seat_row']
-            for(var i = 0; i <= data[0]['max_row_seat']; i++) {
+            for(var i = 0; i < data[0]['max_row_seat']; i++) {
               this.rows.push(String.fromCharCode(index+i))
             }
             console.log(this.rows);

@@ -104,7 +104,7 @@
     <div class="clearfix"></div>
 
     <div class="booking-pagination">
-      <a href="book2.html" class="booking-pagination__prev">
+      <a @click="bookStep2()" class="booking-pagination__prev">
         <p class="arrow__text arrow--prev">prev step</p>
         <span class="arrow__info">choose a sit</span>
       </a>
@@ -159,6 +159,7 @@
             return this.errors;
           } else {
           const price = this.totalSeat*10
+          console.log(this.idShowing, this.idRoom, this.seatChooses, this.idMovie, price, this.email)
           axios.post('http://localhost:5000/api/add_tickets', {
           // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
             showing_id: this.idShowing,
