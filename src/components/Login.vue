@@ -2,7 +2,7 @@
   <div class="wrapper">
     <!-- Banner -->
     <div class="banner-top">
-      <img alt="top banner" src="../assets/images/banners/bra.jpg" />
+      <img alt="top banner" src="../assets/images/banners/banner.jpg">
     </div>
 
     <!-- Header section -->

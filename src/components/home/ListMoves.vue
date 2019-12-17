@@ -49,7 +49,7 @@
         this.$router.push({ name: 'MovieDetails', params:{id: movie.id} });
       },
       getImgae(image){
-        return 'https://mtb-admin.herokuapp.com'+image;
+        return 'http://localhost:5000'+image;
       }
 
     }

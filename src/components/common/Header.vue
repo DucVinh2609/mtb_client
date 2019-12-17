@@ -2,7 +2,7 @@
   <header class="header-wrapper header-wrapper--home">
     <div class="container">
       <!-- Logo link-->
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img alt="logo" src="../../assets/images/logo.png" />
       </a>
 
@@ -21,122 +21,19 @@
         <ul id="navigation">
           <li>
             <span class="sub-nav-toggle plus"></span>
-            <a href="#">Movie</a>
-            <ul class="mega-menu container">
-              <li class="col-md-3 mega-menu__coloum">
-                <h4 class="mega-menu__heading">Now in the cinema</h4>
-                <ul class="mega-menu__list">
-                  <li class="mega-menu__nav-item">
-                    <a href="#">The Counselor</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Bad Grandpa</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Blue Is the Warmest Color</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Capital</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Spinning Plates</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Bastards</a>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                <ul class="mega-menu__list">
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Gravity</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Captain Phillips</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Carrie</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Cloudy with a Chance of Meatballs 2</a>
-                  </li>
-                </ul>
-              </li> -->
-
-              <li class="col-md-3 mega-menu__coloum">
-                <h4 class="mega-menu__heading">Ending soon</h4>
-                <ul class="mega-menu__list">
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Escape Plan</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Rush</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Prisoners</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Enough Said</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">The Fifth Estate</a>
-                  </li>
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Runner Runner</a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                <ul class="mega-menu__list">
-                  <li class="mega-menu__nav-item">
-                    <a href="#">Insidious: Chapter 2</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <a href="/#/gallery">Gallery</a>
           </li>
           <li>
             <span class="sub-nav-toggle plus"></span>
-            <a href="#">Cinema angle</a>
-            <ul>
-              <li class="menu__nav-item">
-                <a href="movie-page-left.html">Movie genre</a>
-              </li>
-              <li class="menu__nav-item">
-                <a href="movie-page-right.html">Cast</a>
-              </li>
-              <li class="menu__nav-item">
-                <a href="movie-page-full.html">Directors</a>
-              </li>
-              <li class="menu__nav-item">
-                <a href="movie-list-left.html">Movie commentary</a>
-              </li>
-              <li class="menu__nav-item">
-                <a href="movie-list-right.html">Movie blog</a>
-              </li>
-            </ul>
+            <a href="/#/news">New</a>
           </li>
           <li>
             <span class="sub-nav-toggle plus"></span>
-            <a href="page-elements.html">Event</a>
-            <ul>
-              <li class="menu__nav-item">
-                <a href="typography.html">Endow</a>
-              </li>
-              <li class="menu__nav-item">
-                <a href="page-elements.html">Great movie of the month</a>
-              </li>
-            </ul>
+            <a href="/#/trailer">Trailer</a>
           </li>
           <li>
             <span class="sub-nav-toggle plus"></span>
-            <a href="gallery-four.html">Support</a>
-          </li>
-          <li>
-            <span class="sub-nav-toggle plus"></span>
-            <a href="news-left.html">Member</a>
+            <a href="/#/contact">Contact</a>
           </li>
         </ul>
       </nav>

@@ -2,7 +2,7 @@
   <div class="wrapper place-wrapper">
     <!-- Banner -->
     <div class="banner-top">
-      <img alt='top banner' src="../../assets/images/banners/bra.jpg">
+      <img alt='top banner' src="../../assets/images/banners/banner.jpg">
     </div>
 
     <!-- Header section -->
@@ -147,18 +147,18 @@
           localStorage['idTimeMovie'] = this.$route.params.id;
           this.$router.push({ name: 'BookStep3'});
         },
-        getURL(URL) {
-          return 'https://cors-anywhere.herokuapp.com/'+URL
-        },
+        // getURL(URL) {
+        //   return 'https://cors-anywhere.herokuapp.com/'+URL
+        // },
         async getRoom() {
           var index = 65
           var idRoom = localStorage.getItem('idRoom');
           console.log(idRoom)
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/max_row_seat/'+idRoom))
+          axios.get('http://localhost:5000/api/max_row_seat/'+idRoom)
           .then(response => {
             const data  = response.data
             this.columns = data[0]['max_seat_row']
-            for(var i = 0; i <= data[0]['max_row_seat']; i++) {
+            for(var i = 0; i < data[0]['max_row_seat']; i++) {
               this.rows.push(String.fromCharCode(index+i))
             }
             console.log(this.rows);
@@ -168,7 +168,7 @@
           })
         },
         async getSeatAcitve() {
-          axios.get(this.getURL('http://mtb-admin.herokuapp.com/api/seat_was_booked/'+this.$route.params.id))
+          axios.get('http://localhost:5000/api/seat_was_booked/'+this.$route.params.id)
           .then(response => {
             const data  = response.data
             data.forEach(element => {

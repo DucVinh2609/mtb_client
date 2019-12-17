@@ -4,7 +4,7 @@
   <div class="wrapper">
     <!-- Banner -->
     <div class="banner-top">
-      <img alt="top banner" src="../assets/images/banners/bra.jpg" />
+      <img alt="top banner" src="../assets/images/banners/banner.jpg">
     </div>
 
     <!-- Header section -->
@@ -235,8 +235,8 @@
       async getMovieDetail() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
+            targetUrl = 'http://localhost:5000/api/movie_detail/'+this.$route.params.id
+          const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesDetail = data[0]
           // this.formatYear = this.moviesDetail
@@ -247,8 +247,8 @@
       async getMovieDate() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_date/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
+            targetUrl = 'http://localhost:5000/api/movie_detail_date/'+this.$route.params.id
+          const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesDates = data
         } catch (error) {
@@ -258,8 +258,8 @@
       async getMovieTime() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
+            targetUrl = 'http://localhost:5000/api/movie_detail_time/'+this.$route.params.id
+          const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesTimes = data
         } catch (error) {

@@ -2,7 +2,7 @@
   <div class="wrapper">
     <!-- Banner -->
     <div class="banner-top">
-      <img alt="top banner" src="../../assets/images/banners/bra.jpg" />
+      <img alt="top banner" src="../../assets/images/banners/banner.jpg">
     </div>
 
     <!-- Header section -->
@@ -36,10 +36,10 @@
 
     <div class="choose-film">
       <div class="swiper-container">
-        <div class="swiper-wrapper" style="text-align: center;">
+        <div class="swiper-wrapper">
           <!--First Slide-->
           <div v-for="(movie, id) in movies" :key="id" class="swiper-slide" data-film="The Fifth Estate">
-            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id), getMovieTime(id)" v-bind:class="{ 'film--choosed': id === isActive }">
+            <div class="film-images" style="width: 197.8px; height: 268.141px;" @click="myFilter(id), myNameMovie(movie.name), getMovieDate(id+1), getMovieTime(id+1)" v-bind:class="{ 'film--choosed': id === isActive }">
               <img alt v-if="movie.image!=null" v-bind:src="getImgae(movie.image)"/>
               <img alt v-else src="../../assets/images/movie/movie-sample1.jpg" />
             </div>
@@ -63,7 +63,7 @@
                 <p class="time-select__place">{{ moviesDate.showtime | formatDate }}</p>
               </div>
               <ul class="col-sm-8 items-wrap">
-                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(id, moviesTime.room_id), myNameTime(moviesTime.time)" v-bind:class="{ active: id === isTimeMove }">
+                <li v-for="(moviesTime, id) in moviesTimes" :key="id" v-if="moviesTime.showtime === moviesDate.showtime" class="time-select__item" @click="myTime(moviesTime.id, moviesTime.room_id), myNameTime(moviesTime.time)" v-bind:class="{ active: moviesTime.id === isTimeMove }">
                   {{ moviesTime.time | formatTime }}
                 </li>
               </ul>
@@ -141,15 +141,15 @@
       bookStep2() {
         localStorage['idRoom'] = this.idRoomMovie;
         localStorage['idTimeMovie'] = this.isTimeMove;
-        localStorage['idMovie'] = this.isActive;
+        localStorage['idMovie'] = this.isActive+1;
         this.$router.push({ name: 'BookStep2', params:{id: this.isTimeMove} });
       },
-      getURL(URL) {
-        return 'https://cors-anywhere.herokuapp.com/'+URL
-      },
+      // getURL(URL) {
+      //   return 'https://cors-anywhere.herokuapp.com/'+URL
+      // },
       async getMovies() {
         try {
-          const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/list_movies'))
+          const response = await fetch('http://localhost:5000/api/list_movies')
           const data = await response.json()
           this.movies = data
         } catch (error) {
@@ -163,6 +163,7 @@
         this.isTimeMove = id
         this.idRoomMovie = idRoom
         console.log(this.idRoomMovie)
+        console.log(this.isTimeMove)
       },
       myNameTime(time) {
         this.timeMove = time
@@ -172,7 +173,7 @@
       },
       async getMovieDate(id) {
         try {
-            const response = await fetch(this.getURL('https://mtb-admin.herokuapp.com/api/movie_detail_date/'+id))
+            const response = await fetch('http://localhost:5000/api/movie_detail_date/'+id)
             const data = await response.json()
             this.moviesDates = data
         } catch (error) {
@@ -182,8 +183,8 @@
       async getMovieTime(id) {
         try {
             var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-              targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail_time/'+id
-            const response = await fetch(proxyUrl + targetUrl)
+              targetUrl = 'http://localhost:5000/api/movie_detail_time/'+id
+            const response = await fetch(targetUrl)
             const data = await response.json()
             this.moviesTimes = data
         } catch (error) {
@@ -191,7 +192,7 @@
         }
       },
       getImgae(image){
-        return 'https://mtb-admin.herokuapp.com'+image;
+        return 'http://localhost:5000'+image;
       }
     },
     mounted() {
