@@ -34,10 +34,10 @@
       </div>
 
       <div class="col-sm-12">
-        
+
 
       <!-- <form novalidate class="form contact-info"> -->
-        <div class="form contact-info checkout-wrapper">  
+        <div class="form contact-info checkout-wrapper">
           <h2 class="page-heading">price</h2>
           <ul class="book-result">
             <li class="book-result__item">
@@ -92,7 +92,7 @@
             <div class="contact-info__field contact-info__field-tel">
               <input type="text" v-model="tel" id="tel" name="tel" placeholder="Phone number" class="form__mail" />
             </div>
-        </div>  
+        </div>
 
         <div class="order">
           <button @click="bookForm()" class="btn btn-md btn--warning" placeholder="">purchase</button>
@@ -172,7 +172,14 @@
             gmail: this.email
           })
           .then(function (response) {
-            console.log( response.data)
+            if (response.status == 200) {
+              localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
+              this.clearSession()
+              // console.log(JSON.parse(localStorage.getItem('inforTicket')))
+              this.$router.push({ name: 'BookStep4'})
+            } else {
+              alert("Some thing wrong !!!")
+            }
           })
           .catch(function (error) {
             this.errors.push(error)
@@ -197,11 +204,18 @@
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       },
+      clearSession() {
+        localStorage.removeItem('seatChooses');
+        localStorage.removeItem('idTimeMovie');
+        localStorage.removeItem('idRoom');
+        localStorage.removeItem('idTimeMovie');
+        localStorage.removeItem('idMovie');
+      },
       bookStep2() {
         this.$router.push({ name: 'BookStep2'});
       }
     },
-    
+
     mounted() {
       // this.bookForm()
     }

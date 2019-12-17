@@ -167,6 +167,7 @@
         </div> -->
         <a @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
         <a @click="bookStep1()" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
+        <!-- <ModalSignin v-on:showLogin="closeSignIn"></ModalSignin> -->
         <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': show === true }">
           <section class="container">
             <div class="col-sm-4 col-sm-offset-4">
@@ -179,8 +180,10 @@
                   </p>
 
                   <div class="field-wrap">
-                    <input type="email" v-model="email" id="email" placeholder="Email" name="user-email" class="login__input" />
-                    <input type="password" v-model="password" id="password" placeholder="Password" name="user-password" class="login__input" />
+                    <input type="email" v-model="username" id="username" placeholder="Email" name="username" class="login__input" v-bind:class="{ 'invalid_field': validateUsername === true }" />
+                    <p v-if="validateUsername == true" class="inv-em alert alert-danger"><span class="icon-warning"></span>Error! Wrong email! <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a></p>
+                    <input type="password" v-model="password" id="password" placeholder="Password" name="user-password" class="login__input" v-bind:class="{ 'invalid_field': validatePassword === true }" />
+                    <p v-if="validatePassword == true" class="inv-em alert alert-danger"><span class="icon-warning"></span>Error! Wrong password! <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a></p>
 
                     <input id="#informed" class="login__check styled" />
                     <label for="#informed" class="login__check-info"></label>
@@ -197,12 +200,13 @@
       </div>
     </div>
   </header>
-  
+
 </template>
 
 <script>
   import router from '@/router'
   import ModalSignin from '@/components/common/ModalSignin.vue'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -211,22 +215,82 @@
     data() {
       return {
         show: false,
-        email: null,
-        password:null
+        username: null,
+        password:null,
+        errors: [],
+        validateUsername: false,
+        validatePassword: false
       }
     },
     methods: {
-      bookStep1() {
+      bookStep1 () {
         this.$router.push({ name: 'BookStep1'});
       },
-      signIn() {
+      getURL(URL) {
+        return 'https://cors-anywhere.herokuapp.com/'+URL
+      },
+      signIn () {
         this.show = true
       },
-      closeSignIn() {
-        this.show = false
+      closeSignIn (enlargeAmount) {
+        this.show = enlargeAmount
       },
-      loginForm() {
-        
+      loginForm () {
+        this.errors = []
+        this.validateUsername = false
+        this.validatePassword = false
+
+        if (this.validate() > 0) {
+          return this.errors;
+        } else {
+          axios.get(this.getURL('https://mtb-admin.herokuapp.com/api/login/'+this.username+'/'+this.password))
+          .then(res => {
+            console.log(res)
+            sessionStorage.setItem('token', res.data.token)
+            this.$router.push('/')
+          })
+          .catch(err => {
+            console.log(err)
+            alert('Wrong email/password')
+          })
+        }
+      },
+      loginSuccessful (req) {
+        if (!req.data.token) {
+          this.loginFailed()
+          return
+        }
+
+        localStorage.token = req.data.token
+        this.error = false
+
+        this.$router.replace(this.$route.query.redirect || '/')
+      },
+      loginFailed () {
+        this.error = 'Login failed!'
+        delete localStorage.token
+      },
+      validate () {
+        this.username = document.getElementById('username').value
+        this.password = document.getElementById('password').value
+        if (!this.password) {
+          this.validatePassword = true
+          this.errors.push("Password required.");
+        }
+        if (!this.username) {
+          this.validateUsername = true
+          this.errors.push('Email required.');
+        }
+        // } else if (!this.validEmail(this.username)) {
+        //   this.validateUsername = true
+        //   this.errors.push('Valid email required.');
+        // }
+
+        return this.errors.length
+      },
+      validEmail (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
       }
     }
   }

@@ -4,13 +4,17 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import moment from 'moment'
-import Axios from 'axios'
+import axios from 'axios'
 
-Vue.prototype.$http = Axios;
-const token = localStorage.getItem('token')
-if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-}
+const API_URL = process.env.API_URL || 'http://mtb-admin.herokuapp.com/api/login/'
+
+export default axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.token
+  }
+})
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
