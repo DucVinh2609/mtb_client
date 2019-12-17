@@ -9,13 +9,6 @@
 
     <!-- Header section -->
     <Header></Header>
-
-    <ul v-if="errors && errors.length">
-      <li v-for="error in errors" :key="error.id">
-        {{error.message}}
-      </li>
-    </ul>
-
     <!-- Search bar -->
     <div class="search-wrapper">
       <div class="container container--add">
@@ -38,11 +31,10 @@
       <div class="col-sm-8 col-md-9">
         <div class="movie">
           <h2 class="page-heading">{{ moviesDetail.name }}</h2>
-
           <div class="movie__info">
             <div class="col-sm-6 col-md-4 movie-mobile">
               <div class="movie__images">
-                <span class="movie__rating">5.0</span>
+                <span class="movie__rating">{{ moviesDetail.rate }}</span>
                 <img alt v-if="moviesDetail.image!=null" v-bind:src="getImgae(moviesDetail.image)"/>
                 <img alt v-else src="../assets/images/movie/movie-sample1.jpg" />
               </div>
@@ -72,24 +64,16 @@
               </p>
               <p class="movie__option">
                 <strong>Director:</strong>
-                <a href="#">Peter Jackson</a>
+                <a href="#">{{ moviesDetail.director }}</a>
               </p>
               <p class="movie__option">
                 <strong>Actors:</strong>
-                <a href="#">Martin Freeman</a>,
-                <a href="#">Ian McKellen</a>,
-                <a href="#">Richard Armitage</a>,
-                <a href="#">Ken Stott</a>,
-                <a href="#">Graham McTavish</a>,
-                <a href="#">Cate Blanchett</a>,
-                <a href="#">Hugo Weaving</a>,
-                <a href="#">Ian Holm</a>,
-                <a href="#">Elijah Wood</a>
+                <a href="#">{{ moviesDetail.actors }}</a>,
                 <a href="#">...</a>
               </p>
               <p class="movie__option">
                 <strong>Age restriction:</strong>
-                <a href="#">13</a>
+                <a href="#">{{ moviesDetail.age_limit }}</a>
               </p>
               <p class="movie__option">
                 <strong>Box office:</strong>
@@ -101,29 +85,26 @@
           <div class="clearfix"></div>
 
           <h2 class="page-heading">The plot</h2>
-
-          <p
-            class="movie__describe"
-          > {{ moviesDetail.description }}
+          <p class="movie__describe"> {{ moviesDetail.description }} </p>
 
           <h2 class="page-heading">photos &amp; videos</h2>
 
           <div class="movie__media">
-              <div class="movie__media-switch">
-                  <a href="#" class="watchlist list--photo" data-filter="media-photo">234 photos</a>
-                  <a href="#" class="watchlist list--video" data-filter="media-video">10 videos</a>
-              </div>
+            <div class="movie__media-switch">
+                <a href="#" class="watchlist list--photo" data-filter="media-photo">234 photos</a>
+                <a href="#" class="watchlist list--video" data-filter="media-video">10 videos</a>
+            </div>
 
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 1292px; height: 90.8906px; transform: translate3d(-323px, 0px, 0px); transition-duration: 0s;">
-                    <!--First Slide-->
-                    <div class="swiper-slide media-video swiper-slide-visible swiper-slide-active" style="width: 209.375px; height: 119.625px; margin-left: -1px; display: none;">
-                      <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
-                        <img alt="" src="../assets/images/movie/movie-video1.jpg">
-                      </a>
-                    </div>
-                </div>
+            <div class="swiper-container">
+              <div class="swiper-wrapper" style="width: 1292px; height: 90.8906px; transform: translate3d(-323px, 0px, 0px); transition-duration: 0s;">
+                  <!--First Slide-->
+                  <div class="swiper-slide media-video swiper-slide-visible swiper-slide-active" style="width: 209.375px; height: 119.625px; margin-left: -1px; display: none;">
+                    <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
+                      <img alt="" src="../assets/images/movie/movie-video1.jpg">
+                    </a>
+                  </div>
               </div>
+            </div>
           </div>
         </div>
 
