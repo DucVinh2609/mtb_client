@@ -18,7 +18,7 @@ import BookStep1 from '@/components/bookingStep/BookStep1'
 import BookStep2 from '@/components/bookingStep/BookStep2'
 import BookStep3 from '@/components/bookingStep/BookStep3'
 import BookStep3Reserve from '@/components/BookStep3Reserve'
-import BookStep4 from '@/components/BookStep4'
+import BookStep4 from '@/components/bookingStep/BookStep4'
 
 Vue.use(Router)
 

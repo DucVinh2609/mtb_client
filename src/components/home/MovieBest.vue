@@ -13,7 +13,7 @@
               <span class="best-voted">{{ movie.name }}</span>
             </li>
             <li>
-              <p class="movie__time">{{ movie.duration | formatTime }} min</p>
+              <p class="movie__time">{{ movie.duration | formatTime }} hour</p>
               <p>Adventure | Drama | Fantasy</p>
               <p>38 comments</p>
             </li>

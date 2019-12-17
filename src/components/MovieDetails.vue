@@ -9,18 +9,11 @@
 
     <!-- Header section -->
     <Header></Header>
-
-    <ul v-if="errors && errors.length">
-      <li v-for="error in errors" :key="error.id">
-        {{error.message}}
-      </li>
-    </ul>
-
     <!-- Search bar -->
     <div class="search-wrapper">
       <div class="container container--add">
         <form id="search-form" method="get" class="search">
-          <input type="text" class="search__field" placeholder="Search" />
+          <!-- <input type="text" class="search__field" placeholder="Search" /> -->
           <select name="sorting_item" id="search-sort" class="search__sort" tabindex="0">
             <option value="1" selected="selected">By title</option>
             <option value="2">By year</option>
@@ -28,7 +21,7 @@
             <option value="4">By title</option>
             <option value="5">By year</option>
           </select>
-          <button type="submit" class="btn btn-md btn--danger search__button">search a movie</button>
+          <!-- <button type="submit" class="btn btn-md btn--danger search__button">search a movie</button> -->
         </form>
       </div>
     </div>
@@ -38,12 +31,12 @@
       <div class="col-sm-8 col-md-9">
         <div class="movie">
           <h2 class="page-heading">{{ moviesDetail.name }}</h2>
-
           <div class="movie__info">
             <div class="col-sm-6 col-md-4 movie-mobile">
               <div class="movie__images">
-                <span class="movie__rating">5.0</span>
-                <img alt src="../assets/images/movie/single-movie.jpg" />
+                <span class="movie__rating">{{ moviesDetail.rate }}</span>
+                <img alt v-if="moviesDetail.image!=null" v-bind:src="getImgae(moviesDetail.image)"/>
+                <img alt v-else src="../assets/images/movie/movie-sample1.jpg" />
               </div>
               <div class="movie__rate">
                 Your vote:
@@ -52,12 +45,11 @@
             </div>
 
             <div class="col-sm-6 col-md-8">
-              <p class="movie__time">{{ moviesDetail.duration }} min</p>
+              <p class="movie__time">{{ moviesDetail.duration | formatTime }} hour</p>
 
               <p class="movie__option">
                 <strong>Country:</strong>
-                <a href="#">New Zeland</a>,
-                <a href="#">USA</a>
+                <a href="#">{{ moviesDetail.country_code }}</a>
               </p>
               <p class="movie__option">
                 <strong>Year:</strong>
@@ -68,133 +60,51 @@
                 <a href="#">{{ moviesDetail.note }}</a>
               </p>
               <p class="movie__option">
-                <strong>Release date:</strong>{{ moviesDetail.start_date }} - {{ moviesDetail.end_date }}
+                <strong>Release date:</strong>{{ moviesDetail.start_date | formatDate }} - {{ moviesDetail.end_date | formatDate }}
               </p>
               <p class="movie__option">
                 <strong>Director:</strong>
-                <a href="#">Peter Jackson</a>
+                <a href="#">{{ moviesDetail.director }}</a>
               </p>
               <p class="movie__option">
                 <strong>Actors:</strong>
-                <a href="#">Martin Freeman</a>,
-                <a href="#">Ian McKellen</a>,
-                <a href="#">Richard Armitage</a>,
-                <a href="#">Ken Stott</a>,
-                <a href="#">Graham McTavish</a>,
-                <a href="#">Cate Blanchett</a>,
-                <a href="#">Hugo Weaving</a>,
-                <a href="#">Ian Holm</a>,
-                <a href="#">Elijah Wood</a>
+                <a href="#">{{ moviesDetail.actors }}</a>,
                 <a href="#">...</a>
               </p>
               <p class="movie__option">
                 <strong>Age restriction:</strong>
-                <a href="#">13</a>
+                <a href="#">{{ moviesDetail.age_limit }}</a>
               </p>
               <p class="movie__option">
                 <strong>Box office:</strong>
                 <a href="#">$1 017 003 568</a>
               </p>
-
-              <a href="#" class="comment-link">Comments: 15</a>
-
-              <div class="movie__btns">
-                <a href="#" class="btn btn-md btn--warning">book a ticket for this movie</a>
-                <a href="#" class="watchlist">Add to watchlist</a>
-              </div>
             </div>
           </div>
 
           <div class="clearfix"></div>
 
           <h2 class="page-heading">The plot</h2>
-
-          <p
-            class="movie__describe"
-          > {{ moviesDetail.description }}
+          <p class="movie__describe"> {{ moviesDetail.description }} </p>
 
           <h2 class="page-heading">photos &amp; videos</h2>
 
           <div class="movie__media">
-              <div class="movie__media-switch">
-                  <a href="#" class="watchlist list--photo" data-filter="media-photo">234 photos</a>
-                  <a href="#" class="watchlist list--video" data-filter="media-video">10 videos</a>
+            <div class="movie__media-switch">
+                <a href="#" class="watchlist list--photo" data-filter="media-photo">234 photos</a>
+                <a href="#" class="watchlist list--video" data-filter="media-video">10 videos</a>
+            </div>
+
+            <div class="swiper-container">
+              <div class="swiper-wrapper" style="width: 1292px; height: 90.8906px; transform: translate3d(-323px, 0px, 0px); transition-duration: 0s;">
+                  <!--First Slide-->
+                  <div class="swiper-slide media-video swiper-slide-visible swiper-slide-active" style="width: 209.375px; height: 119.625px; margin-left: -1px; display: none;">
+                    <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
+                      <img alt="" src="../assets/images/movie/movie-video1.jpg">
+                    </a>
+                  </div>
               </div>
-
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 1292px; height: 90.8906px; transform: translate3d(-323px, 0px, 0px); transition-duration: 0s;">
-                    <!--First Slide-->
-                    <div class="swiper-slide media-video swiper-slide-visible swiper-slide-active" style="width: 209.375px; height: 119.625px; margin-left: -1px; display: none;">
-                      <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
-                            <img alt="" src="../assets/images/movie/movie-video1.jpg">
-                      </a>
-                    </div>
-
-                    <!--Second Slide-->
-                    <div class="swiper-slide media-video swiper-slide-visible" style="width: 209.375px; height: 119.625px; display: none;">
-                      <a href="https://www.youtube.com/watch?v=Kb3ykVYvT4U" class="movie__media-item">
-                          <img alt="" src="images/movie/movie-video2.jpg">
-                      </a>
-                    </div>
-
-                    <!--Third Slide-->
-                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block; margin-left: -1px;">
-                          <a href="images/movie/movie-img1-lg.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img1.jpg">
-                            </a>
-                    </div>
-
-                    <!--Four Slide-->
-                    <div class="swiper-slide media-photo" style="width: 215.333px; height: 90.8906px; display: block;">
-                          <a href="images/movie/movie-img2-lg.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img2.jpg">
-                            </a>
-                    </div>
-
-                    <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible swiper-slide-active" style="width: 215.333px; height: 90.8906px; display: block;">
-                          <a href="images/gallery/large/item-7.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img3.jpg">
-                            </a>
-                    </div>
-
-                    <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
-                          <a href="images/gallery/large/item-11.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img4.jpg">
-                            </a>
-                    </div>
-
-                    <!--First Slide-->
-                    <div class="swiper-slide media-video swiper-slide-visible" style="width: 209.375px; height: 119.625px; display: none;">
-                      <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
-                            <img alt="" src="images/movie/movie-video1.jpg">
-                      </a>
-                    </div>
-
-                    <!--Second Slide-->
-                    <div class="swiper-slide media-video swiper-slide-visible" style="width: 209.375px; height: 119.625px; display: none;">
-                      <a href="https://www.youtube.com/watch?v=Kb3ykVYvT4U" class="movie__media-item">
-                          <img alt="" src="images/movie/movie-video2.jpg">
-                      </a>
-                    </div>
-
-                    <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
-                          <a href="images/gallery/large/item-15.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img5.jpg">
-                            </a>
-                    </div>
-
-                    <!--Slide-->
-                    <div class="swiper-slide media-photo swiper-slide-visible" style="width: 215.333px; height: 90.8906px; display: block;">
-                          <a href="images/gallery/large/item-16.jpg" class="movie__media-item">
-                              <img alt="" src="images/movie/movie-img6.jpg">
-                            </a>
-                    </div>
-
-                </div>
-              </div>
+            </div>
           </div>
         </div>
 
@@ -221,35 +131,8 @@
               <span class="title-edition">discussed posts</span>
             </h3>
             <ol>
-              <li>
-                <a href="#" class="category__item">Gravity</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">The Counselor</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Bad Grandpa</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Blue Is the Warmest Color</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Rush</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Captain Phillips</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Escape Plan</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Cloudy with a Chance of Meatballs 2</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">Prisoners</a>
-              </li>
-              <li>
-                <a href="#" class="category__item">The Fifth Estate</a>
+              <li v-for="movie in moviesBest" :key="movie.id">
+                <a class="category__item">{{ movie.name }}</a>
               </li>
             </ol>
           </div>
@@ -325,33 +208,19 @@
         moviesDetail: [],
         errors: [],
         moviesDates: [],
-        moviesTimes: []
-        // moviesDates: [
-        //   {"id":1,"movie_id":1,"room_id":1,"showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"showtime":"2019-12-1"}, {"id":3,"movie_id":1,"room_id":1,"showtime":"2019-12-03"}, {"id":4,"movie_id":1,"room_id":1,"showtime":"2019-12-04"}
-        // ],
-        // moviesTimes: [
-        //   {"id":1,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":2,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":3,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"}, {"id":4,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-11-30"},
-        //   {"id":5,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":6,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":7,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"}, {"id":8,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-1"},
-        //   {"id":9,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":10,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":11,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"}, {"id":12,"movie_id":1,"room_id":1,"time":"09:00","showtime":"2019-12-03"},
-        //   {"id":13,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":14,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":15,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"}, {"id":16,"movie_id":1,"room_id":1,"time":"10:00","showtime":"2019-12-04"},
-        // ]
-
+        moviesTimes: [],
+        moviesBest: []
       }
     },
     methods: {
       async getMovieDetail() {
-        // var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-        //     targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-        // this.axios.get(proxyUrl + targetUrl).then((response)=>{
-        //   this.moviesDetail=response.data;
-        // });
-
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = 'http://localhost:5000/api/movie_detail/'+this.$route.params.id
           const response = await fetch(targetUrl)
           const data = await response.json()
-          this.moviesDetail = data
+          this.moviesDetail = data[0]
+          // this.formatYear = this.moviesDetail
         } catch (error) {
           this.errors.push(error)
         }
@@ -378,11 +247,29 @@
           this.errors.push(error)
         }
       },
+      getImgae(image){
+        return 'https://mtb-admin.herokuapp.com'+image;
+      },
+      async getMovieBest() {
+        try {
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+              targetUrl = 'https://mtb-admin.herokuapp.com/api/best_movies'
+          const response = await fetch(proxyUrl + targetUrl)
+          const data = await response.json()
+          this.moviesBest = data
+        } catch (error) {
+          this.errors.push(error)
+        }
+      },
+      detailMovie(id) {
+        this.$router.push({ name: 'MovieDetails', params:{id: id} });
+      },
     },
     mounted() {
       this.getMovieDetail(),
       this.getMovieDate(),
-      this.getMovieTime()
+      this.getMovieTime(),
+      this.getMovieBest()
     },
   }
 </script>

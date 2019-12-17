@@ -16,7 +16,7 @@
             <div class="movie__info">
               <a @click="detailMovie(movie)" class="movie__title">{{ movie.name }} ({{ movie.start_date | formatDate }})</a>
 
-              <p class="movie__time">{{ movie.duration | formatTime }}  min</p>
+              <p class="movie__time">{{ movie.duration | formatTime }}  hour</p>
 
               <p class="movie__option">
                 <a href="#">Sci-Fi</a> |
@@ -51,7 +51,7 @@
       getImgae(image){
         return 'http://localhost:5000'+image;
       }
-      
+
     }
   }
 </script>
