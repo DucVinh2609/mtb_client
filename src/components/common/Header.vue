@@ -143,7 +143,7 @@
 
       <!-- Additional header buttons / Auth and direct link to booking-->
       <div class="control-panel">
-        <!-- <div class="auth auth--home">
+        <div v-if="checkIsLoging != null" class="auth auth--home">
           <div class="auth__show">
             <span class="auth__image">
               <img alt src="../../assets/images/client-photo/auth.png" />
@@ -164,8 +164,8 @@
               <a href="#" class="auth__function-item">Settings</a>
             </li>
           </ul>
-        </div> -->
-        <a @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
+        </div>
+        <a v-else @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
         <a @click="bookStep1()" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
         <!-- <ModalSignin v-on:showLogin="closeSignIn"></ModalSignin> -->
         <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': show === true }">
@@ -191,7 +191,44 @@
 
                   <div class="login__control">
                     <button @click="loginForm()" class="btn btn-md btn--warning btn--wider">sign in</button>
-                    <a href="#" class="login__tracker form__tracker">Forgot password?</a>
+                    <a @click="signUp()" class="login__tracker form__tracker">Sin up</a>
+                  </div>
+                </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': showUp === true }">
+          <section class="container">
+            <div class="col-sm-4 col-sm-offset-4">
+              <button @click="closeSignIn()" type="button" class="overlay-close">Close</button>
+                <div id="login-form" class="login" method="get" novalidate>
+                  <p class="login__title">
+                    sign up
+                    <br />
+                    <span class="login-edition">welcome to A.Movie</span>
+                  </p>
+
+                  <div class="field-wrap">
+                    
+                    <p v-for="error in errors" :key="error.id" class="inv-em alert alert-danger">
+                      <!-- <li  > -->
+                        <span class="icon-warning"></span>
+                        {{ error }} <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
+                      <!-- </li> -->
+                    </p>
+                    <input type="email" v-model="username" id="username" placeholder="Email" name="email" class="login__input" v-bind:class="{ 'invalid_field': validateEmail === true }" />
+                    <input type="email" v-model="email" id="email" placeholder="Username" name="username" class="login__input" v-bind:class="{ 'invalid_field': validateUsername === true }" />
+                    <input type="password" v-model="password" id="password" placeholder="Password" name="user-password" class="login__input" v-bind:class="{ 'invalid_field': validatePassword === true }" />
+                    <input type="password" v-model="confirmPassword" id="confirmPassword" placeholder="Confirm Password" name="user-password" class="login__input" v-bind:class="{ 'invalid_field': validateConfirmPassword === true }" />
+
+                    <input id="#informed" class="login__check styled" />
+                    <label for="#informed" class="login__check-info"></label>
+                  </div>
+
+                  <div class="login__control">
+                    <button @click="signUpForm()" class="btn btn-md btn--warning btn--wider">sign up</button>
+                    <a href="#" class="login__tracker form__tracker">Sign in</a>
                   </div>
                 </div>
             </div>
@@ -215,11 +252,17 @@
     data() {
       return {
         show: false,
+        showUp: false,
+        email: null,
         username: null,
-        password:null,
+        password: null,
+        confirmPassword: null,
         errors: [],
         validateUsername: false,
-        validatePassword: false
+        validatePassword: false,
+        validateEmail: false,
+        validateConfirmPassword: false,
+        checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null
       }
     },
     methods: {
@@ -230,7 +273,12 @@
         return 'https://cors-anywhere.herokuapp.com/'+URL
       },
       signIn () {
+        this.showUp = false
         this.show = true
+      },
+      signUp () {
+        this.show = false
+        this.showUp = true
       },
       closeSignIn (enlargeAmount) {
         this.show = enlargeAmount
@@ -246,8 +294,11 @@
           axios.get(this.getURL('https://mtb-admin.herokuapp.com/api/login/'+this.username+'/'+this.password))
           .then(res => {
             console.log(res)
-            sessionStorage.setItem('token', res.data.token)
-            this.$router.push('/')
+            if (res.status == 200) {
+              sessionStorage.setItem('token', res.data.token)
+            } else {
+              alert("Some thing wrongs !!!")
+            }
           })
           .catch(err => {
             console.log(err)
@@ -255,20 +306,67 @@
           })
         }
       },
-      loginSuccessful (req) {
-        if (!req.data.token) {
-          this.loginFailed()
-          return
+      signUpForm () {
+        this.errors = []
+        this.validateUsername = false
+        this.validatePassword = false
+        this.validateEmail = false
+        this.validateConfirmPassword = false
+
+        if (this.validateSignUp() > 0) {
+          return this.errors;
+        } else {
+          axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/login/'), {
+            username: this.username,
+            gmail: this.email,
+            password: this.password
+          })
+          .then(res => {
+            console.log(res)
+            if (res.status == 200) {
+              sessionStorage.setItem('token', res.data.token)
+            } else {
+              alert("Some thing wrongs !!!")
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            alert('Wrong email/password')
+          })
+        }
+      },
+      validateSignUp () {
+        this.username = document.getElementById('username').value
+        this.password = document.getElementById('password').value
+        this.email = document.getElementById('email').value
+        this.confirmPassword = document.getElementById('confirmPassword').value
+
+        if (!this.password) {
+          this.validatePassword = true
+          this.errors.push("Password required.");
+        }
+        if (!this.username) {
+          this.validateUsername = true
+          this.errors.push('Username required.');
+        }
+        if (!this.email) {
+          this.validateEmail = true
+          this.errors.push('Email required.');
+        } else if (!this.validEmail(this.username)) {
+          this.validateEmail = true
+          this.errors.push('Valid email required.');
+        }
+        if (!confirmPassword) {
+          this.validateConfirmPassword = true
+          this.errors.push("Confirm Password required.");
+          
+        } else if (this.password != confirmPassword) {
+          this.validatePassword = true
+          this.validatePassword = true
+          this.errors.push("Password and Confirm password no validate.");
         }
 
-        localStorage.token = req.data.token
-        this.error = false
-
-        this.$router.replace(this.$route.query.redirect || '/')
-      },
-      loginFailed () {
-        this.error = 'Login failed!'
-        delete localStorage.token
+        return this.errors.length
       },
       validate () {
         this.username = document.getElementById('username').value
