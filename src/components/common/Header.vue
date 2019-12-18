@@ -103,8 +103,8 @@
                     <p v-for="error in errors" :key="error.id" class="inv-em alert alert-danger">
                       <span class="icon-warning"></span>{{ error }} <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
                     </p>
-                    <input type="email" v-model="username" id="username" placeholder="Email" name="email" class="login__input" v-bind:class="{ 'invalid_field': validateEmail === true }" />
-                    <input type="email" v-model="email" id="email" placeholder="Username" name="username" class="login__input" v-bind:class="{ 'invalid_field': validateUsername === true }" />
+                    <input type="text" v-model="username" id="username" placeholder="user name" name="username" class="login__input" v-bind:class="{ 'invalid_field': validateUsername === true }"  />
+                    <input type="email" v-model="email" id="email" placeholder="Email" name="email" class="login__input" v-bind:class="{ 'invalid_field': validateEmail === true }"/>
                     <input type="password" v-model="password" id="password" placeholder="Password" name="user-password" class="login__input" v-bind:class="{ 'invalid_field': validatePassword === true }" />
                     <input type="password" v-model="confirmPassword" id="confirmPassword" placeholder="Confirm Password" name="user-password" class="login__input" v-bind:class="{ 'invalid_field': validateConfirmPassword === true }" />
 
@@ -261,10 +261,10 @@
         }
       },
       validateSignUp () {
-        this.username = document.getElementById('username').value
-        this.password = document.getElementById('password').value
-        this.email = document.getElementById('email').value
-        this.confirmPassword = document.getElementById('confirmPassword').value
+        // this.username = document.getElementById('username').value
+        // this.password = document.getElementById('password').value
+        // this.email = document.getElementById('email').value
+        // this.confirmPassword = document.getElementById('confirmPassword').value
 
         if (!this.password) {
           this.validatePassword = true
