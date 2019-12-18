@@ -40,26 +40,18 @@
 
       <!-- Additional header buttons / Auth and direct link to booking-->
       <div class="control-panel">
-        <div v-if="checkIsLoging != null" class="auth auth--home">
-          <div class="auth__show">
+        <div  v-if="checkIsLoging != null" class="auth auth--home">
+          <div  class="auth__show">
             <span class="auth__image">
-              <img alt src="../../assets/images/client-photo/auth.png" />
+              <img alt="" src="../../assets/images/client-photo/auth.png">
             </span>
           </div>
-          <a href="#" class="btn btn--sign btn--singin">me</a>
-          <ul class="auth__function">
-            <li>
-              <a href="#" class="auth__function-item">Watchlist</a>
-            </li>
-            <li>
-              <a href="#" class="auth__function-item">Booked tickets</a>
-            </li>
-            <li>
-              <a href="#" class="auth__function-item">Discussion</a>
-            </li>
-            <li>
-              <a href="#" class="auth__function-item">Settings</a>
-            </li>
+          <a class="btn btn--sign btn--singin" id="toggle">
+            me
+          </a>
+          <ul class="auth__function" id="menu" >
+            <li><a href="#" class="auth__function-item">Watchlist</a></li>
+            <li><a @click="logout()" class="auth__function-item">Logout</a></li>
           </ul>
         </div>
         <a v-else @click="signIn()" class="btn btn--sign login-window ">Sign in</a>
@@ -107,12 +99,9 @@
                   </p>
 
                   <div class="field-wrap">
-                    
+
                     <p v-for="error in errors" :key="error.id" class="inv-em alert alert-danger">
-                      <!-- <li  > -->
-                        <span class="icon-warning"></span>
-                        {{ error }} <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
-                      <!-- </li> -->
+                      <span class="icon-warning"></span>{{ error }} <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
                     </p>
                     <input type="email" v-model="username" id="username" placeholder="Email" name="email" class="login__input" v-bind:class="{ 'invalid_field': validateEmail === true }" />
                     <input type="email" v-model="email" id="email" placeholder="Username" name="username" class="login__input" v-bind:class="{ 'invalid_field': validateUsername === true }" />
@@ -131,6 +120,18 @@
             </div>
           </section>
         </div>
+
+        <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isSuccess === true }" >
+          <section class="container">
+            <div class="col-sm-4 col-sm-offset-4">
+                <button @click="closeIsSuccess()" type="button" class="overlay-close">Close</button>
+                <form id="login-form" class="login" method="get" novalidate="">
+                  <p class="login__title" style="display: block;">sign in <br><span class="login-edition">welcome to A.Movie</span></p>
+                  <p class="success" style="display: block;">You have successfully<br> signed in!</p>
+                </form>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </header>
@@ -138,6 +139,12 @@
 </template>
 
 <script>
+  $(document).ready(function () {
+    $("#toggle").on('click', function() {
+      $('#menu').toggleClass("open-function");
+    });
+  });
+
   import router from '@/router'
   import ModalSignin from '@/components/common/ModalSignin.vue'
   import axios from 'axios'
@@ -159,7 +166,8 @@
         validatePassword: false,
         validateEmail: false,
         validateConfirmPassword: false,
-        checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null
+        checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
+        isSuccess: false
       }
     },
     methods: {
@@ -180,6 +188,17 @@
       closeSignIn (enlargeAmount) {
         this.show = enlargeAmount
       },
+      closeIsSuccess () {
+        this.showUp = false
+        this.show = false
+        this.checkIsLoging = sessionStorage.getItem('token')
+        this.isSuccess = false
+      },
+      logout() {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('inforUser')
+        this.checkIsLoging = null
+      },
       loginForm () {
         this.errors = []
         this.validateUsername = false
@@ -190,9 +209,15 @@
         } else {
           axios.get(this.getURL('https://mtb-admin.herokuapp.com/api/login/'+this.username+'/'+this.password))
           .then(res => {
+
             console.log(res)
+            console.log(res.data)
+            console.log(res.data.mail)
             if (res.status == 200) {
-              sessionStorage.setItem('token', res.data.token)
+              this.show = false
+              sessionStorage.setItem('token', res.data.username)
+              sessionStorage.setItem('inforUser', JSON.stringify(res.data))
+              this.isSuccess = true
             } else {
               alert("Some thing wrongs !!!")
             }
@@ -213,15 +238,18 @@
         if (this.validateSignUp() > 0) {
           return this.errors;
         } else {
-          axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/login/'), {
+          axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/login/'), { //api đăng kí
             username: this.username,
             gmail: this.email,
             password: this.password
           })
           .then(res => {
-            console.log(res)
             if (res.status == 200) {
-              sessionStorage.setItem('token', res.data.token)
+              this.showUp = false
+              this.isSuccess = true
+              sessionStorage.setItem('token', res.data.username)
+              sessionStorage.setItem('inforUser', JSON.stringify(res.data))
+              this.checkIsLoging = sessionStorage.getItem('token')
             } else {
               alert("Some thing wrongs !!!")
             }
@@ -256,7 +284,7 @@
         if (!confirmPassword) {
           this.validateConfirmPassword = true
           this.errors.push("Confirm Password required.");
-          
+
         } else if (this.password != confirmPassword) {
           this.validatePassword = true
           this.validatePassword = true

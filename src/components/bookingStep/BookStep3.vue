@@ -9,7 +9,7 @@
     <Header></Header>
 
     <!-- Search bar -->
-    <!-- <Search></Search> -->
+    <Search></Search>
 
     <!-- Main content -->
     <section class="container">
@@ -21,10 +21,6 @@
             <br />
             <span class="order__descript">and have fun movie time</span>
           </p>
-          <div class="order__control">
-            <a href class="order__control-btn active">Purchase</a>
-            <a href="book3-reserve.html" class="order__control-btn">Reserve</a>
-          </div>
         </div>
       </div>
       <div class="order-step-area">
@@ -115,7 +111,21 @@
     </div>
 
     <div class="clearfix"></div>
-
+    <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isConfirm === true }" >
+        <section class="container">
+          <div class="col-sm-4 col-sm-offset-4">
+              <button @click="closeConfirm()" type="button" class="overlay-close">Close</button>
+              <form id="login-form" class="login" method="get" novalidate="">
+                <p class="login__title" style="display: block;">A.Movie <br></p>
+                <p class="success" style="display: block;">Would you like to continue without logging in?</p>
+              </form>
+              <div class="login__control">
+                <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">Yes</button>
+                <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">No</button>
+              </div>
+          </div>
+        </section>
+      </div>
     <Footer></Footer>
   </div>
 </template>
@@ -143,48 +153,50 @@
         totalSeat: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length : '',
         idShowing: localStorage.getItem('idTimeMovie') ? localStorage.getItem('idTimeMovie') : '0',
         idMovie: localStorage.getItem('idMovie') ? localStorage.getItem('idMovie') : '0',
-        email: null,
-        tel: null,
-        errors: []
+        email: JSON.parse(sessionStorage.getItem('inforUser')).email ? JSON.parse(sessionStorage.getItem('inforUser')).email : null,
+        tel: JSON.parse(sessionStorage.getItem('inforUser')).phone ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
+        errors: [],
+        checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
+        isConfirm: false
       }
     },
     methods: {
         // getURL(URL) {
         //   return 'https://cors-anywhere.herokuapp.com/'+URL
         // },
-        bookForm: function() {
+      bookForm: function() {
           this.errors = []
 
           if (this.validate() > 0) {
             return this.errors;
           } else {
-          const price = this.totalSeat*10
-          console.log(this.idShowing, this.idRoom, this.seatChooses, this.idMovie, price, this.email)
-          axios.post('http://localhost:5000/api/add_tickets', {
-          // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
-            showing_id: this.idShowing,
-            room_id: this.idRoom,
-            username: "no",
-            event_id: null,
-            unitprice: 10,
-            seats: this.seatChooses,
-            movie_id: this.idMovie,
-            price: price,
-            gmail: this.email
-          })
-          .then(function (response) {
-            if (response.status == 200) {
-              localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
-              this.clearSession()
-              // console.log(JSON.parse(localStorage.getItem('inforTicket')))
-              this.$router.push({ name: 'BookStep4'})
-            } else {
-              alert("Some thing wrong !!!")
-            }
-          })
-          .catch(function (error) {
-            this.errors.push(error)
-          });
+            const price = this.totalSeat*10
+            console.log(this.idShowing, this.idRoom, this.seatChooses, this.idMovie, price, this.email)
+            axios.post('http://localhost:5000/api/add_tickets', {
+            // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
+              showing_id: this.idShowing,
+              room_id: this.idRoom,
+              username: "no",
+              event_id: null,
+              unitprice: 10,
+              seats: this.seatChooses,
+              movie_id: this.idMovie,
+              price: price,
+              gmail: this.email
+            })
+            .then(function (response) {
+              if (response.status == 200) {
+                localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
+                this.clearSession()
+                // console.log(JSON.parse(localStorage.getItem('inforTicket')))
+                this.$router.push({ name: 'BookStep4'})
+              } else {
+                alert("Some thing wrong !!!")
+              }
+            })
+            .catch(function (error) {
+              this.errors.push(error)
+            });
           }
       },
       validate () {

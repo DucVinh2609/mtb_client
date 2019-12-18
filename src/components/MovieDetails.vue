@@ -40,7 +40,7 @@
               </div>
               <div class="movie__rate">
                 Your vote:
-                <div id="score" class="score"></div>
+                <div id="score" class="score" style="cursor: pointer; width: 130px;"><img src="../assets/images/rate/star-on.svg" alt="1" title="bad">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="2" title="poor">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="3" title="regular">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="4" title="good">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="5" title="gorgeous"><input type="hidden" name="score" value="5"></div>
               </div>
             </div>
 
@@ -91,16 +91,38 @@
 
           <div class="movie__media">
             <div class="movie__media-switch">
-                <a href="#" class="watchlist list--photo" data-filter="media-photo">234 photos</a>
-                <a href="#" class="watchlist list--video" data-filter="media-video">10 videos</a>
+              <a href="#" class="watchlist list--photo" data-filter="media-photo">2 photos</a>
+              <a href="#" class="watchlist list--video" data-filter="media-video">2 videos</a>
             </div>
 
             <div class="swiper-container">
-              <div class="swiper-wrapper" style="width: 1292px; height: 90.8906px; transform: translate3d(-323px, 0px, 0px); transition-duration: 0s;">
+              <div class="swiper-wrapper">
                   <!--First Slide-->
-                  <div class="swiper-slide media-video swiper-slide-visible swiper-slide-active" style="width: 209.375px; height: 119.625px; margin-left: -1px; display: none;">
-                    <a href="https://www.youtube.com/watch?v=Y5AehBA3IsE" class="movie__media-item ">
-                      <img alt="" src="../assets/images/movie/movie-video1.jpg">
+                  <div class="swiper-slide media-video" style="width: 209.375px; height: 119.625px; margin-left: -1px;">
+                    <a v-bind:href="moviesDetail.url_video1" class="movie__media-item " target="_blank">
+                      <img alt="" src="../assets/images/movie/movie-video1.jpg" >
+                    </a>
+                  </div>
+
+                  <!--Second Slide-->
+                  <div class="swiper-slide media-video" style="width: 209.375px; height: 119.625px;" >
+                    <a v-bind:href="moviesDetail.url_video2" class="movie__media-item" target="_blank" >
+                        <img alt="" src="../assets/images/movie/movie-video1.jpg" >
+                    </a>
+                  </div>
+                  <!--First Slide-->
+                  <div class="swiper-slide media-video " style="width: 209.375px; height: 119.625px;">
+                    <a class="movie__media-item ">
+                      <img alt v-if="moviesDetail.image1" v-bind:src="moviesDetail.image1"/>
+                      <img alt v-else src="../assets/images/movie/movie-sample1.jpg" />
+                    </a>
+                  </div>
+
+                  <!--Second Slide-->
+                  <div class="swiper-slide media-video " style="width: 209.375px; height: 119.625px;">
+                    <a class="movie__media-item">
+                      <img alt v-if="moviesDetail.image2" v-bind:src="moviesDetail.image2"/>
+                      <img alt v-else src="../assets/images/movie/movie-sample1.jpg" />
                     </a>
                   </div>
               </div>
@@ -217,10 +239,11 @@
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = 'http://localhost:5000/api/movie_detail/'+this.$route.params.id
+            // targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+          // const response = await fetch(proxyUrl + targetUrl)
           const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesDetail = data[0]
-          // this.formatYear = this.moviesDetail
         } catch (error) {
           this.errors.push(error)
         }

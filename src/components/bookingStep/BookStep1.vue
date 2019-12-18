@@ -172,6 +172,7 @@
         this.isNameMovie = name
       },
       async getMovieDate(id) {
+
         try {
             const response = await fetch('http://localhost:5000/api/movie_detail_date/'+id)
             const data = await response.json()

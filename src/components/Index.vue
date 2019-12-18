@@ -19,30 +19,30 @@
       <div class="col-sm-12">
         <div class="mega-select-present mega-select-top mega-select--full">
           <div class="mega-select-marker">
-                        <div class="marker-indecator location" style="display: block;">
-                            <p class="select-marker"><span>movie to watch now</span> <br>in your city</p>
-                        </div>
+            <div class="marker-indecator location" style="display: block;">
+                <p class="select-marker"><span>movie to watch now</span> <br>in your city</p>
+            </div>
 
-                        <div class="marker-indecator cinema" style="display: none;">
-                            <p class="select-marker"><span>find your </span> <br>cinema</p>
-                        </div>
+            <div class="marker-indecator cinema" style="display: none;">
+                <p class="select-marker"><span>find your </span> <br>cinema</p>
+            </div>
 
-                        <div class="marker-indecator film-category" style="display: none;">
-                            <p class="select-marker"><span>find movie due to </span> <br> your mood</p>
-                        </div>
+            <div class="marker-indecator film-category" style="display: none;">
+                <p class="select-marker"><span>find movie due to </span> <br> your mood</p>
+            </div>
 
-                        <div class="marker-indecator actors" style="display: none;">
-                            <p class="select-marker"><span> like particular stars</span> <br>find them</p>
-                        </div>
+            <div class="marker-indecator actors" style="display: none;">
+                <p class="select-marker"><span> like particular stars</span> <br>find them</p>
+            </div>
 
-                        <div class="marker-indecator director" style="display: none;">
-                            <p class="select-marker"><span>admire personalities - find </span> <br>by director</p>
-                        </div>
+            <div class="marker-indecator director" style="display: none;">
+                <p class="select-marker"><span>admire personalities - find </span> <br>by director</p>
+            </div>
 
-                        <div class="marker-indecator country" style="display: none;">
-                            <p class="select-marker"><span>search for movie from certain </span> <br>country?</p>
-                        </div>
-                    </div>
+            <div class="marker-indecator country" style="display: none;">
+                <p class="select-marker"><span>search for movie from certain </span> <br>country?</p>
+            </div>
+          </div>
 
           <div class="mega-select pull-right">
             <span class="mega-select__point">Search by</span>
