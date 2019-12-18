@@ -237,16 +237,13 @@
     methods: {
       async getMovieDetail() {
         try {
-
-            // targetUrl = 'http://localhost:5000/api/movie_detail/'+this.$route.params.id
-
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
-          const response = await fetch(proxyUrl + targetUrl)
-          // const response = await fetch(targetUrl)
+            targetUrl = 'http://localhost:5000/api/movie_detail/'+this.$route.params.id
+            // targetUrl = 'https://mtb-admin.herokuapp.com/api/movie_detail/'+this.$route.params.id
+          // const response = await fetch(proxyUrl + targetUrl)
+          const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesDetail = data[0]
-          // this.formatYear = this.moviesDetail
         } catch (error) {
           this.errors.push(error)
         }
