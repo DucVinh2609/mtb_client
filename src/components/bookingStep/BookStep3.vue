@@ -83,7 +83,7 @@
               </ul>
             </p>
             <div class="contact-info__field contact-info__field-mail">
-              <input type="text" v-model="email" id="email" name="email" placeholder="Your email" class="form__mail" />
+              <input type="email" v-model="email" id="email" name="email" placeholder="Your email" class="form__mail" />
             </div>
             <div class="contact-info__field contact-info__field-tel">
               <input type="text" v-model="tel" id="tel" name="tel" placeholder="Phone number" class="form__mail" />
@@ -153,8 +153,8 @@
         totalSeat: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length : '',
         idShowing: localStorage.getItem('idTimeMovie') ? localStorage.getItem('idTimeMovie') : '0',
         idMovie: localStorage.getItem('idMovie') ? localStorage.getItem('idMovie') : '0',
-        email: JSON.parse(sessionStorage.getItem('inforUser')).email ? JSON.parse(sessionStorage.getItem('inforUser')).email : null,
-        tel: JSON.parse(sessionStorage.getItem('inforUser')).phone ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
+        email: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).email : null,
+        tel: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
         errors: [],
         checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
         isConfirm: false
@@ -195,20 +195,17 @@
               }
             })
             .catch(function (error) {
-              this.errors.push(error)
+              alert("Some thing wrong !!!")
+              // this.errors.push(error)
             });
           }
       },
       validate () {
-        this.tel = document.getElementById('tel').value
-        this.email = document.getElementById('email').value
-        if (!this.tel) {
-          this.errors.push("Phone required.");
-        }
         if (!this.email) {
           this.errors.push('Email required.');
-        } else if (!this.validEmail(this.email)) {
-          this.errors.push('Valid email required.');
+        }
+        if (!this.tel) {
+          this.errors.push("Phone required.");
         }
 
         return this.errors.length
