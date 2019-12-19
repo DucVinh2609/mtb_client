@@ -112,20 +112,20 @@
 
     <div class="clearfix"></div>
     <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isConfirm === true }" >
-        <section class="container">
-          <div class="col-sm-4 col-sm-offset-4">
-              <button @click="closeConfirm()" type="button" class="overlay-close">Close</button>
-              <form id="login-form" class="login" method="get" novalidate="">
-                <p class="login__title" style="display: block;">A.Movie <br></p>
-                <p class="success" style="display: block;">Would you like to continue without logging in?</p>
-              </form>
-              <div class="login__control">
-                <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">Yes</button>
-                <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">No</button>
-              </div>
-          </div>
-        </section>
-      </div>
+      <section class="container">
+        <div class="col-sm-4 col-sm-offset-4">
+            <button @click="closeConfirm()" type="button" class="overlay-close">Close</button>
+            <form id="login-form" class="login" method="get" novalidate="">
+              <p class="login__title" style="display: block;">A.Movie <br></p>
+              <p class="success" style="display: block;">Would you like to continue without logging in?</p>
+            </form>
+            <div class="login__control">
+              <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">Yes</button>
+              <button @click="closeConfirm()" class="btn btn-md btn--warning btn--wider">No</button>
+            </div>
+        </div>
+      </section>
+    </div>
     <Footer></Footer>
   </div>
 </template>

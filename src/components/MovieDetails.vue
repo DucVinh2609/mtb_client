@@ -40,7 +40,9 @@
               </div>
               <div class="movie__rate">
                 Your vote:
-                <div id="score" class="score" style="cursor: pointer; width: 130px;"><img src="../assets/images/rate/star-on.svg" alt="1" title="bad">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="2" title="poor">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="3" title="regular">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="4" title="good">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="5" title="gorgeous"><input type="hidden" name="score" value="5"></div>
+                <!-- <StarRating @click="test()" @rating-selected="setRating" :rating="rating" v-bind:star-size="25"></StarRating> -->
+                <StarRating v-if="checkIsLoging != null" @click="test()" @rating-selected="rating = $event" :rating="rating" v-bind:star-size="25"></StarRating>
+                <div v-else @click="openConfirm()" id="score" class="score" style="cursor: pointer; width: 130px;"><img src="../assets/images/rate/star-on.svg" alt="1" title="bad">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="2" title="poor">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="3" title="regular">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="4" title="good">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="5" title="gorgeous"><input type="hidden" name="score" value="5"></div>
               </div>
             </div>
 
@@ -203,7 +205,17 @@
     </section>
 
     <div class="clearfix"></div>
-
+    <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isConfirm === true }" >
+      <section class="container">
+        <div class="col-sm-4 col-sm-offset-4">
+            <button @click="closeConfirm()" type="button" class="overlay-close">Close</button>
+            <form id="login-form" class="login" method="get" novalidate="">
+              <p class="login__title" style="display: block;">A.Movie <br></p>
+              <p class="success" style="display: block;">You need to log in to continue the rate movie !!!</p>
+            </form>
+        </div>
+      </section>
+    </div>
     <Footer></Footer>
 
     <ModalSignin></ModalSignin>
@@ -217,6 +229,7 @@
   import Footer from './common/Footer.vue'
   import TimeMovie from './movie/TimeMovie.vue'
   import axios from 'axios'
+  import StarRating from 'vue-star-rating'
 
   export default {
     components: {
@@ -224,6 +237,7 @@
       ModalSignin,
       Footer,
       TimeMovie,
+      StarRating
     },
     data() {
       return {
@@ -231,7 +245,10 @@
         errors: [],
         moviesDates: [],
         moviesTimes: [],
-        moviesBest: []
+        moviesBest: [],
+        rating: 5,
+        checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
+        isConfirm: false
       }
     },
     methods: {
@@ -287,6 +304,28 @@
       detailMovie(id) {
         this.$router.push({ name: 'MovieDetails', params:{id: id} });
       },
+      openConfirm() {
+        this.isConfirm = true
+      },
+      closeConfirm () {
+        this.isConfirm = false
+      },
+      test () {
+        console.log(this.rating)
+      },
+      setRating: function(rating){
+        this.rating= rating;
+        var userName = JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+          targetUrl = 'https://mtb-admin.herokuapp.com/api/rate/'+ userName +'/'+ this.$route.params.id +'/'+rating
+        axios.post(proxyUrl + targetUrl)
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          alert("Some thing wrong !!!")
+        });
+      }
     },
     mounted() {
       this.getMovieDetail(),
