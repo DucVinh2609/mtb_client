@@ -191,11 +191,11 @@
                 // console.log(JSON.parse(localStorage.getItem('inforTicket')))
                 this.$router.push({ name: 'BookStep4'})
               } else {
-                alert("Some thing wrong !!!")
+                alert("Some thing wrong 2 !!!")
               }
             })
             .catch(function (error) {
-              alert("Some thing wrong !!!")
+              alert("Some thing wrong 1 !!!")
               // this.errors.push(error)
             });
           }
