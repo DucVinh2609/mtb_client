@@ -166,7 +166,6 @@
         // },
       bookForm: function() {
           this.errors = []
-
           if (this.validate() > 0) {
             return this.errors;
           } else {
@@ -184,22 +183,26 @@
               price: price,
               gmail: this.email
             })
-            this.$router.push({ name: 'BookStep4'})
-            // .then(function (response) {
-            //   if (response.status == 200) {
-            //     localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
-            //     this.clearSession()
-            //     // console.log(JSON.parse(localStorage.getItem('inforTicket')))
-            //     this.$router.push({ name: 'BookStep4'})
-            //   } else {
-            //     alert("Some thing wrong 2 !!!")
-            //   }
-            // })
-            // .catch(function (error) {
-            //   alert("Some thing wrong 1 !!!")
-            //   // this.errors.push(error)
-            // });
+            .then(function (response) {
+              if (response.status == 200) {
+                localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
+              } else {
+                alert("Some thing wrong 2 !!!")
+              }
+            })
+            .catch(function (error) {
+              alert("Some thing wrong 1 !!!")
+              // this.errors.push(error)
+            })
+            .finally(() => this.$router.push({ name: 'BookStep4'}))
+            
           }
+          // console.log(check)
+          // if (this.check==1) {
+          //   this.clearSession()
+          //   this.$router.push({ name: 'BookStep4'})
+          // }
+          
       },
       validate () {
         if (!this.email) {
@@ -217,6 +220,7 @@
       },
       clearSession() {
         localStorage.removeItem('seatChooses');
+        
         localStorage.removeItem('idTimeMovie');
         localStorage.removeItem('idRoom');
         localStorage.removeItem('idTimeMovie');

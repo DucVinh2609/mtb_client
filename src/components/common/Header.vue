@@ -207,8 +207,8 @@
         if (this.validate() > 0) {
           return this.errors;
         } else {
-          // axios.get(this.getURL('https://mtb-admin.herokuapp.com/api/login/'+this.username+'/'+this.password))
-          axios.get('http://localhost:5000/api/login/'+this.username+'/'+this.password)
+          axios.get(this.getURL('https://mtb-admin.herokuapp.com/api/login/'+this.username+'/'+this.password))
+          // axios.get('http://localhost:5000/api/login/'+this.username+'/'+this.password)
           .then(res => {
 
             console.log(res)
