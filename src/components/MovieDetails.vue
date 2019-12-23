@@ -288,13 +288,13 @@
         }
       },
       getImgae(image){
-        return 'https://mtb-admin.herokuapp.com'+image;
+        return 'http://localhost:5000'+image;
       },
       async getMovieBest() {
         try {
           var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-              targetUrl = 'https://mtb-admin.herokuapp.com/api/best_movies'
-          const response = await fetch(proxyUrl + targetUrl)
+              targetUrl = 'http://localhost:5000/api/best_movies'
+          const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesBest = data
         } catch (error) {
@@ -317,8 +317,8 @@
         this.rating= rating;
         var userName = JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-          targetUrl = 'https://mtb-admin.herokuapp.com/api/rate/'+ userName +'/'+ this.$route.params.id +'/'+rating
-        axios.post(proxyUrl + targetUrl)
+          targetUrl = 'http://localhost:5000/api/rate/'+ userName +'/'+ this.$route.params.id +'/'+rating
+        axios.post(targetUrl)
         .then(function (response) {
           console.log(response)
         })

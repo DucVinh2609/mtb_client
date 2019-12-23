@@ -26,7 +26,7 @@
 
               <div class="movie__rate">
                 <div class="score"></div>
-                <span class="movie__rating">4.1</span>
+                <span class="movie__rating">{{ movie.rate }}</span>
               </div>
             </div>
           </div>

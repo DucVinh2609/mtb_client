@@ -184,20 +184,21 @@
               price: price,
               gmail: this.email
             })
-            .then(function (response) {
-              if (response.status == 200) {
-                localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
-                this.clearSession()
-                // console.log(JSON.parse(localStorage.getItem('inforTicket')))
-                this.$router.push({ name: 'BookStep4'})
-              } else {
-                alert("Some thing wrong 2 !!!")
-              }
-            })
-            .catch(function (error) {
-              alert("Some thing wrong 1 !!!")
-              // this.errors.push(error)
-            });
+            this.$router.push({ name: 'BookStep4'})
+            // .then(function (response) {
+            //   if (response.status == 200) {
+            //     localStorage.setItem('inforTicket', JSON.stringify(response.data[0]))
+            //     this.clearSession()
+            //     // console.log(JSON.parse(localStorage.getItem('inforTicket')))
+            //     this.$router.push({ name: 'BookStep4'})
+            //   } else {
+            //     alert("Some thing wrong 2 !!!")
+            //   }
+            // })
+            // .catch(function (error) {
+            //   alert("Some thing wrong 1 !!!")
+            //   // this.errors.push(error)
+            // });
           }
       },
       validate () {
