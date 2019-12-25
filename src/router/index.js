@@ -8,6 +8,7 @@ import SingleCinema from '@/components/SingleCinema'
 import CinemaList from '@/components/CinemaList'
 import Trailer from '@/components/Trailer'
 import Rates from '@/components/Rates'
+import Setting from '@/components/account/Setting'
 import Contact from '@/components/Contact'
 import Pages404 from '@/components/Pages404'
 import Login from '@/components/Login'
@@ -68,6 +69,11 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '/setting',
+      name: 'Setting',
+      component: Setting
     },
     {
       path: '/404',
