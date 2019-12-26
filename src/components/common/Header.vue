@@ -50,6 +50,7 @@
             me
           </a>
           <ul class="auth__function" id="menu" >
+            <li><a @click="setting()" class="auth__function-item">Setting</a></li>
             <li><a href="#" class="auth__function-item">Watchlist</a></li>
             <li><a @click="logout()" class="auth__function-item">Logout</a></li>
           </ul>
@@ -171,6 +172,9 @@
       }
     },
     methods: {
+      setting () {
+        this.$router.push({ name: 'Setting'});
+      },
       bookStep1 () {
         this.$router.push({ name: 'BookStep1'});
       },
