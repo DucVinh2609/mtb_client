@@ -9,111 +9,58 @@
     <Header></Header>
 
     <!-- Search bar -->
-    <Search></Search>
+    <!-- <Search></Search> -->
 
     <div class="contact-form-wrapper">
       <div class="container">
         <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-          <form id="contact-form" class="form row" method="post" novalidate action="send.php">
+          <div id="contact-form" class="form row" method="post" novalidate action="send.php">
             <p class="form__title">Setting</p>
-            <div class="col-sm-6">
-              <input type="text" placeholder="Your name" name="username" class="form__name" />
+            <div>
+              <div class="col-sm-6">
+                <input type="text" v-model="fullname" placeholder="Your fullname" name="fullname" class="form__name" />
+              </div>
+              <div class="col-sm-6">
+                <input type="email" v-model="email" placeholder="Your email" name="email" class="form__mail" />
+              </div>
+              <div class="col-sm-6">
+                <input type="text" v-model="phone" placeholder="Your phone number" name="phone" class="form__name" />
+              </div>
+              <div class="col-sm-6">
+                <input type="text" v-model="address" placeholder="Your address" name="address" class="form__mail" />
+              </div>
+              <div class="col-sm-6">
+                <select placeholder="Your gender" v-model="gender" name="gender" class="form__mail" style="height: 39px; color: #b4b1b2;">
+                  <option class="form__mail" value="Nam">Male</option>
+                  <option class="form__mail" value="Nu">Female</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <div style="width: 100%; height: 100%; color: #b4b1b2;">
+                  <DatePicker v-model="birthday" :value="birthday" style="width: 100%; height: 39px !important; color: #b4b1b2;"></DatePicker>
+                </div>
+              </div>
             </div>
-            <div class="col-sm-6">
-              <input type="text" placeholder="Your fullname" name="fullname" class="form__name" />
+            <div style="text-align: center;">
+              <button @click="settingAccount()" class="btn btn-md btn--danger">Save</button>
             </div>
-            <div class="col-sm-6">
-              <input type="email" placeholder="Your email" name="email" class="form__mail" />
-            </div>
-            <div class="col-sm-6">
-              <input type="text" placeholder="Your phone number" name="phone" class="form__name" />
-            </div>
-            <div class="col-sm-6">
-              <input type="text" placeholder="Your address" name="address" class="form__mail" />
-            </div>
-            <div class="col-sm-6">
-              <!-- <v-select :options="options" :reduce="country => country.code" label="country" class="form__mail"/> -->
-              <input type="text" placeholder="Your email" name="user-email" class="form__mail" />
-            </div>
-            <button type="submit" class="btn btn-md btn--danger">Save</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-
-    <footer class="footer-wrapper">
+    <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isSuccess === true }" >
       <section class="container">
-        <div class="col-xs-4 col-md-2 footer-nav">
-          <ul class="nav-link">
-            <li>
-              <a href="#" class="nav-link__item">Cities</a>
-            </li>
-            <li>
-              <a href="movie-list-left.html" class="nav-link__item">Movies</a>
-            </li>
-            <li>
-              <a href="trailer.html" class="nav-link__item">Trailers</a>
-            </li>
-            <li>
-              <a href="rates-left.html" class="nav-link__item">Rates</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-xs-4 col-md-2 footer-nav">
-          <ul class="nav-link">
-            <li>
-              <a href="coming-soon.html" class="nav-link__item">Coming soon</a>
-            </li>
-            <li>
-              <a href="cinema-list.html" class="nav-link__item">Cinemas</a>
-            </li>
-            <li>
-              <a href="offers.html" class="nav-link__item">Best offers</a>
-            </li>
-            <li>
-              <a href="news-left.html" class="nav-link__item">News</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-xs-4 col-md-2 footer-nav">
-          <ul class="nav-link">
-            <li>
-              <a href="#" class="nav-link__item">Terms of use</a>
-            </li>
-            <li>
-              <a href="gallery-four.html" class="nav-link__item">Gallery</a>
-            </li>
-            <li>
-              <a href="contact.html" class="nav-link__item">Contacts</a>
-            </li>
-            <li>
-              <a href="page-elements.html" class="nav-link__item">Shortcodes</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <div class="footer-info">
-            <p class="heading-special--small">
-              A.Movie
-              <br />
-              <span class="title-edition">in the social media</span>
-            </p>
-
-            <div class="social">
-              <a href="#" class="social__variant fa fa-facebook"></a>
-              <a href="#" class="social__variant fa fa-twitter"></a>
-              <a href="#" class="social__variant fa fa-vk"></a>
-              <a href="#" class="social__variant fa fa-instagram"></a>
-              <a href="#" class="social__variant fa fa-tumblr"></a>
-              <a href="#" class="social__variant fa fa-pinterest"></a>
-            </div>
-
-            <div class="clearfix"></div>
-            <p class="copy">&copy; A.Movie, 2013. All rights reserved. Done by Olia Gozha</p>
-          </div>
+        <div class="col-sm-4 col-sm-offset-4">
+            <button @click="closeIsSuccess()" type="button" class="overlay-close">Close</button>
+            <form id="login-form" class="login" method="get" novalidate="">
+              <p class="login__title" style="display: block;">sign in <br><span class="login-edition">welcome to A.Movie</span></p>
+              <p class="success" style="display: block;">You have successfully<br> signed in!</p>
+            </form>
         </div>
       </section>
-    </footer>
+    </div>
+
+    <Footer></Footer>
   </div>
 </template>
 
@@ -122,19 +69,79 @@
     text-align: center;
   }
 </style>
-
 <script>
-  $(document).ready(function () {
-    let options = [{code: 'CA', country: 'Canada'}];
-  });
 
 import Header from '@/components/common/Header.vue'
 import Footer from '@/components/common/Footer.vue'
 import Search from '@/components/common/Search.vue'
+import DatePicker from 'vue2-datepicker'
+import 'vue2-datepicker/index.css'
+import 'vue2-datepicker/locale/zh-cn';
+import axios from 'axios'
 
 export default {
   components: {
-    Header
+    Header,
+    DatePicker,
+    Footer
+  },
+  data() {
+    return {
+      fullname: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).fullname : null,
+      email: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).email : null,
+      phone: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
+      address: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).address : null,
+      gender: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).gender : null,
+      birthday: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).birthday : null,
+      username: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null,
+      validateFullname: false,
+      validateEmail: false,
+      validatePhone: false,
+      isSuccess: false
+    }
+  },
+  methods: {
+    closeIsSuccess () {
+      this.isSuccess = false
+    },
+    getURL(URL) {
+      return 'https://cors-anywhere.herokuapp.com/'+URL
+    },
+    settingAccount() {
+      console.log(this.gender);
+      axios({
+        method: 'post',
+        url: this.getURL('https://mtb-admin.herokuapp.com/api/member/edit/'+this.username),
+        data: {
+          fullname: this.username,
+          address: this.address,
+          phone: this.phone,
+          birthday: this.birthday,
+          gender: this.gender
+        },
+      })
+      // axios.post(this.getURL('https://mtb-admin.herokuapp.com/api/member/edit/'+this.username), {
+      //   fullname: this.username,
+      //   address: this.address,
+      //   phone: this.phone,
+      //   birthday: this.birthday,
+      //   gender: this.gender
+      // })
+      .then(res => {
+
+        console.log(res)
+        // if (res.status == 200) {
+          this.isSuccess = true
+        // } else {
+        //   alert("Some thing wrongs !!!")
+        // }
+      })
+      .catch(err => {
+
+        console.log(err)
+        alert('Some thing wrongs !!!')
+      })
+    }
   }
 }
 </script>

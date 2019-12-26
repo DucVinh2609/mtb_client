@@ -4571,7 +4571,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .auth .btn--singin:before {
   left: 9px;
-  background-image: url(../images/components/wave-hover.svg);
+  background-image: url(../assets/components/wave-hover.svg);
 }
 .auth .btn--singin:after {
   content: "\f078";
@@ -4588,7 +4588,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   color: #ffffff;
 }
 .btn--singin:hover:before {
-  background-image: url(../images/components/wave-light-sm.svg);
+  background-image: url(../assets/images/components/wave-light-sm.svg);
 }
 .auth__show:hover {
   cursor: pointer;
@@ -4598,7 +4598,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   color: #ffffff;
 }
 .auth__show:hover + .btn--singin:before {
-  background-image: url(../images/components/wave-light-sm.svg);
+  background-image: url(../assets/components/wave-light-sm.svg);
 }
 .open-function {
   display: block !important;
@@ -4642,7 +4642,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .datepicker:after {
   content: '';
-  background-image: url('../images/components/wave-danger.svg');
+  background-image: url('../assets/components/wave-danger.svg');
   -webkit-background-size: 40px 4px;
   background-size: 40px 4px;
   background-repeat: repeat-x;
@@ -4653,7 +4653,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   bottom: -2px;
 }
 .datepicker:hover:after {
-  background-image: url('../images/components/wave-main.svg');
+  background-image: url('../assets/components/wave-main.svg');
 }
 .datepicker .datepicker__marker {
   font-weight: bold;
@@ -4783,7 +4783,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .ui-datepicker .ui-datepicker-current-day .ui-state-default:before,
 .ui-datepicker td:hover .ui-state-default:before {
   content: "";
-  background-image: url(../images/components/corner-left.png);
+  background-image: url(../assets/components/corner-left.png);
   background-repeat: no-repeat;
   width: 5px;
   height: 31px;
@@ -4794,7 +4794,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .ui-datepicker .ui-datepicker-current-day .ui-state-default:after,
 .ui-datepicker td:hover .ui-state-default:after {
   content: "";
-  background-image: url(../images/components/corner-right.png);
+  background-image: url(../assets/components/corner-right.png);
   background-repeat: no-repeat;
   width: 5px;
   height: 31px;
@@ -4852,7 +4852,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .select .sbSelector:after {
   content: '';
-  background-image: url('../images/components/wave-danger.svg');
+  background-image: url('../assets/components/wave-danger.svg');
   -webkit-background-size: 40px 4px;
   background-size: 40px 4px;
   background-repeat: repeat-x;
@@ -4863,7 +4863,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   bottom: 2px;
 }
 .select .sbSelector:hover:after {
-  background-image: url('../images/components/wave-main.svg');
+  background-image: url('../assets/components/wave-main.svg');
 }
 .select .sbToggle {
   right: auto;
