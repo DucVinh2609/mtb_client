@@ -20,6 +20,7 @@ import BookStep2 from '@/components/bookingStep/BookStep2'
 import BookStep3 from '@/components/bookingStep/BookStep3'
 import BookStep3Reserve from '@/components/BookStep3Reserve'
 import BookStep4 from '@/components/bookingStep/BookStep4'
+import HelloWorld from '@/components/paypal/HelloWorld'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/demo',
       name: 'DemoElementUI',
       component: DemoElementUI
+    },
+    {
+      path: '/paypal',
+      name: 'HelloWorld',
+      component: HelloWorld
     },
     {
       path: '/details/:id',

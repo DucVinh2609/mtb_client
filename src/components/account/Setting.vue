@@ -37,7 +37,7 @@
               </div>
               <div class="col-sm-6">
                 <div style="width: 100%; height: 100%; color: #b4b1b2;">
-                  <DatePicker v-model="birthday" :value="birthday" style="width: 100%; height: 39px !important; color: #b4b1b2;"></DatePicker>
+                  <DatePicker v-model="birthday" :value="birthday" valueType="format" style="width: 100%; height: 39px !important; color: #b4b1b2;"></DatePicker>
                 </div>
               </div>
             </div>
@@ -53,8 +53,8 @@
         <div class="col-sm-4 col-sm-offset-4">
             <button @click="closeIsSuccess()" type="button" class="overlay-close">Close</button>
             <form id="login-form" class="login" method="get" novalidate="">
-              <p class="login__title" style="display: block;">sign in <br><span class="login-edition">welcome to A.Movie</span></p>
-              <p class="success" style="display: block;">You have successfully<br> signed in!</p>
+              <p class="login__title" style="display: block;">SETTING ACCOUNT <br><span class="login-edition">welcome to A.Movie</span></p>
+              <p class="success" style="display: block;">You update successfully<br> your account!</p>
             </form>
         </div>
       </section>
@@ -111,9 +111,9 @@ export default {
       console.log(this.gender);
       axios({
         method: 'post',
-        url: this.getURL('https://mtb-admin.herokuapp.com/api/member/edit/'+this.username),
+        url: 'http://localhost:5000/api/member/edit/'+this.username,
         data: {
-          fullname: this.username,
+          fullname: this.fullname,
           address: this.address,
           phone: this.phone,
           birthday: this.birthday,
@@ -139,7 +139,7 @@ export default {
       .catch(err => {
 
         console.log(err)
-        alert('Some thing wrongs !!!')
+        alert("Some thing wrongs !!!")
       })
     }
   }

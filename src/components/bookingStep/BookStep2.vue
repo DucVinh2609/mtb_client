@@ -172,7 +172,7 @@
           .then(response => {
             const data  = response.data
             data.forEach(element => {
-              $.merge(this.seats, element['seat'].split(' '))
+              $.merge(this.seats, element['seat'].split(','))
             });
             console.log(this.seats)
           })
@@ -200,7 +200,8 @@
       },
       mounted() {
         this.getRoom(),
-        this.getSeatAcitve()
+        this.getSeatAcitve(),
+        this.checkSeatIsAcitive()
       }
     }
 </script>

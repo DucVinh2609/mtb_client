@@ -95,7 +95,7 @@
           <span class="arrow__text arrow--prev"></span>
           <span class="arrow__info"></span>
         </a>
-        <a v-if="isTimeMove != null" @click="bookStep2()" class="booking-pagination__next">
+        <a v-if="isTimeMove != null" @click="bookStep2()" target="_blank" class="booking-pagination__next">
           <span class="arrow__text arrow--next">next step</span>
           <span class="arrow__info">choose a sit</span>
         </a>

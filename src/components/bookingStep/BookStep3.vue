@@ -49,32 +49,15 @@
               <span class="book-result__count booking-cost">${{ totalSeat*10 }}</span>
             </li>
           </ul>
-
-          <h2 class="page-heading">Choose payment method</h2>
-          <div class="payment">
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay1.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay2.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay3.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay4.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay5.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay6.png" />
-            </a>
-            <a href="#" class="payment__item">
-              <img alt src="../../assets/images/payment/pay7.png" />
-            </a>
+          <div v-if="!paidFor">
+            <h2 class="page-heading">Choose payment method</h2>
+            <div class="payment">
+              <div ref="paypal"></div>
+            </div>
           </div>
-
+          <div v-if="paidFor">
+            <h2 class="page-heading" style="color:green;">Payment success!</h2>
+          </div>
           <h2 class="page-heading">Contact information</h2>
             <p v-if="errors.length">
               <b>Please correct the following error(s):</b>
@@ -89,9 +72,10 @@
               <input type="text" v-model="tel" id="tel" name="tel" placeholder="Phone number" class="form__mail" />
             </div>
         </div>
-
-        <div class="order">
-          <button @click="bookForm()" class="btn btn-md btn--warning" placeholder="">purchase</button>
+        <div v-if="paidFor">
+          <div class="order">
+            <button @click="bookForm()" class="btn btn-md btn--warning" placeholder="">purchase</button>
+          </div>
         </div>
           <!-- </form> -->
       </div>
@@ -157,7 +141,15 @@
         tel: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
         errors: [],
         checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
-        isConfirm: false
+        isConfirm: false,
+        loaded: false,
+        paidFor: false,
+        product: {
+          price: parseInt(localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses').split(',').length :'') * 10,
+          description: "leg lamp from that one movie",
+          img: "./assets/lamp.jpg"
+        }
+
       }
     },
     methods: {
@@ -228,11 +220,63 @@
       },
       bookStep2() {
         this.$router.push({ name: 'BookStep2'});
+      },
+      setLoaded: function() {
+        this.loaded = true;
+        window.paypal
+          .Buttons({
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    description: this.product.description,
+                    amount: {
+                      currency_code: "USD",
+                      value: this.product.price
+                    }
+                  }
+                ]
+              });
+            },
+            onApprove: async (data, actions) => {
+              const order = await actions.order.capture();
+              this.data;
+              this.paidFor = true;
+              console.log(order);
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+          .render(this.$refs.paypal);
       }
     },
 
     mounted() {
       // this.bookForm()
+      const script = document.createElement("script");
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=AUEpnLWzAJ7AFfKyaRSHRUGtsfm_nmxrK06OkwR4UvkVAuqBtNCRADC4noOk5H3wvct6Plchz-_6sEps";
+      script.addEventListener("load", this.setLoaded);
+      document.body.appendChild(script);
     }
+
   }
 </script>
+
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
