@@ -21,6 +21,7 @@ import BookStep3 from '@/components/bookingStep/BookStep3'
 import BookStep3Reserve from '@/components/BookStep3Reserve'
 import BookStep4 from '@/components/bookingStep/BookStep4'
 import HelloWorld from '@/components/paypal/HelloWorld'
+import WaitList from '@/components/account/WaitList'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/waitList',
+      name: 'WaitList',
+      component: WaitList
     },
     {
       path: '/demo',

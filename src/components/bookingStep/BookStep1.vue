@@ -69,12 +69,11 @@
               </ul>
             </div>
           </div>
-          <!-- <TimeMovie v-bind:moviesDates="moviesDates" v-bind:moviesTimes="moviesTimes"></TimeMovie> -->
         </div>
 
         <div class="choose-indector choose-indector--time">
           <strong>Choosen:</strong>
-          <span class="choosen-area">{{ timeMove | formatTime }}</span>
+          <span v-if="timeMove" class="choosen-area">{{ timeMove | formatTime }}</span>
         </div>
       </div>
     </section>

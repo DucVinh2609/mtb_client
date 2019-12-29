@@ -40,9 +40,12 @@
               </div>
               <div class="movie__rate">
                 Your vote:
-                <!-- <StarRating @click="test()" @rating-selected="setRating" :rating="rating" v-bind:star-size="25"></StarRating> -->
-                <StarRating v-if="checkIsLoging != null" @click="test()" @rating-selected="rating = $event" :rating="rating" v-bind:star-size="25"></StarRating>
-                <div v-else @click="openConfirm()" id="score" class="score" style="cursor: pointer; width: 130px;"><img src="../assets/images/rate/star-on.svg" alt="1" title="bad">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="2" title="poor">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="3" title="regular">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="4" title="good">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="5" title="gorgeous"><input type="hidden" name="score" value="5"></div>
+                <StarRating  v-if="checkIsLoging != null" @click="test()" @rating-selected="setRating" v-bind:increment="0.1" :rating="rating" v-bind:star-size="25"></StarRating>
+                <!-- <StarRating v-if="checkIsLoging != null" @click="test()" @rating-selected="rating = $event" :rating="rating" v-bind:star-size="25"></StarRating> -->
+                <!-- <div v-else @click="openConfirm()" id="score" class="score" style="cursor: pointer; width: 130px;"><img src="../assets/images/rate/star-on.svg" alt="1" title="bad">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="2" title="poor">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="3" title="regular">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="4" title="good">&nbsp;<img src="../assets/images/rate/star-on.svg" alt="5" title="gorgeous"><input type="hidden" name="score" value="5"></div> -->
+                <div v-else @click="openConfirm()" id="score" class="score" style="cursor: pointer; width: 130px;">
+                  <StarRating v-bind:increment="0.1" :rating="rating" v-bind:star-size="25"></StarRating>
+                </div>
               </div>
             </div>
 
@@ -216,6 +219,17 @@
         </div>
       </section>
     </div>
+    <div class="overlay overlay-hugeinc" v-bind:class="{ 'open': isConfirmRate === true }" >
+      <section class="container">
+        <div class="col-sm-4 col-sm-offset-4">
+            <button @click="closeConfirmRate()" type="button" class="overlay-close">Close</button>
+            <form id="login-form" class="login" method="get" novalidate="">
+              <p class="login__title" style="display: block;">A.Movie <br></p>
+              <p class="success" style="display: block;">You need to log in to continue the rate movie !!!</p>
+            </form>
+        </div>
+      </section>
+    </div>
     <Footer></Footer>
 
     <ModalSignin></ModalSignin>
@@ -240,15 +254,17 @@
       StarRating
     },
     data() {
+      // console.log(this.moviesDetail)
       return {
         moviesDetail: [],
         errors: [],
         moviesDates: [],
         moviesTimes: [],
         moviesBest: [],
-        rating: 5,
+        rating: null,
         checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
-        isConfirm: false
+        isConfirm: false,
+        isConfirmRate: false
       }
     },
     methods: {
@@ -261,6 +277,8 @@
           const response = await fetch(targetUrl)
           const data = await response.json()
           this.moviesDetail = data[0]
+          this.rating = this.moviesDetail.rate
+          // console.log(this.moviesDetail.rate)
         } catch (error) {
           this.errors.push(error)
         }
@@ -312,26 +330,80 @@
       },
       test () {
         console.log(this.rating)
+        this.isConfirmRate = true
+      },
+      closeConfirmRate () {
+        this.isConfirmRate = false
       },
       setRating: function(rating){
-        this.rating= rating;
-        var userName = JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-          targetUrl = 'http://localhost:5000/api/rate/'+ userName +'/'+ this.$route.params.id +'/'+rating
-        axios.post(targetUrl)
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          alert("Some thing wrong !!!")
-        });
+        if (rating != null) {
+          this.rating= rating;
+          var userName = JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null
+          var paramsId = this.$route.params.id ? this.$route.params.id : null
+          console.log(paramsId, this.$route.params.id)
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = 'http://localhost:5000/api/rate/'+ userName +'/'+ paramsId
+          axios.get(targetUrl)
+          .then(function (response) {
+            console.log(response.data)
+            if (Array.isArray(response.data) && response.data.length) {
+              var rate_before = response.data[0].rate;
+              axios.delete('http://localhost:5000/api/rate/'+response.data[0].id)
+              .then(function (response2) {
+                if (response2.status == 200) {
+                  axios.post('http://localhost:5000/api/rate/'+ userName +'/'+paramsId +'/'+rating)
+                  .then(function (response) {
+                    alert("You rate susscesful !!!")
+                    axios.get('http://localhost:5000/api/rate/movie/'+paramsId)
+                    .then(function (response3) {
+                      var ratemovie = (response3.data[0].rate*response3.data.length + rating - rate_before)/(response3.data.length)
+                      ratemovie = parseFloat(ratemovie.toFixed(1))
+                      axios.put('http://localhost:5000/api/rate/movie/'+paramsId+'/'+ratemovie)
+                      .then(function (response4) {
+                        console.log("OK")
+                      });
+                    });
+                  })
+                  .catch(function (error) {
+                    alert("Some thing wrong !!!")
+                  });
+                } else {
+                  alert("Some thing wrong !!!")
+                }
+              }).catch(function (error) {
+                alert("Some thing wrong !!!")
+              });
+            } else {
+              axios.post('http://localhost:5000/api/rate/'+ userName +'/'+ paramsId +'/'+rating)
+              .then(function (response) {
+                alert("You rate susscesful !!!")
+                axios.get('http://localhost:5000/api/rate/movie/'+paramsId)
+                .then(function (response3) {
+                  var ratemovie = (response3.data[0].rate*response3.data.length + rating)/(response3.data.length+1)
+                  ratemovie = parseFloat(ratemovie.toFixed(1))
+                  axios.put('http://localhost:5000/api/rate/movie/'+paramsId+'/'+ratemovie)
+                  .then(function (response4) {
+                    console.log(response4)
+                  });
+                });
+              })
+              .catch(function (error) {
+                alert("Some thing wrong!!!")
+              });
+            }
+          })
+          .catch(function (error) {
+            alert("Some thing wrong !!!")
+          });
+        }
       }
     },
     mounted() {
       this.getMovieDetail(),
       this.getMovieDate(),
       this.getMovieTime(),
-      this.getMovieBest()
+      this.getMovieBest(),
+      this.setRating()
     },
   }
 </script>

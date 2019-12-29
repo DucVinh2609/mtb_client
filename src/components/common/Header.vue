@@ -51,7 +51,7 @@
           </a>
           <ul class="auth__function" id="menu" >
             <li><a @click="setting()" class="auth__function-item">Setting</a></li>
-            <li><a href="#" class="auth__function-item">Watchlist</a></li>
+            <li><a @click="waitList()" class="auth__function-item">Watchlist</a></li>
             <li><a @click="logout()" class="auth__function-item">Logout</a></li>
           </ul>
         </div>
@@ -174,6 +174,9 @@
     methods: {
       setting () {
         this.$router.push({ name: 'Setting'});
+      },
+      waitList () {
+        this.$router.push({ name: 'WaitList'});
       },
       bookStep1 () {
         this.$router.push({ name: 'BookStep1'});

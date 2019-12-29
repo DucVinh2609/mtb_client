@@ -131,6 +131,7 @@
         Search
     },
     data() {
+      console.log(JSON.parse(sessionStorage.getItem('inforUser')))
       return {
         idRoom: localStorage.getItem('idRoom') ? localStorage.getItem('idRoom') : '0',
         seatChooses: localStorage.getItem('seatChooses') ? localStorage.getItem('seatChooses') : '',
@@ -139,6 +140,7 @@
         idMovie: localStorage.getItem('idMovie') ? localStorage.getItem('idMovie') : '0',
         email: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).email : null,
         tel: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).phone : null,
+        username: JSON.parse(sessionStorage.getItem('inforUser')) ? JSON.parse(sessionStorage.getItem('inforUser')).username : null,
         errors: [],
         checkIsLoging: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
         isConfirm: false,
@@ -167,7 +169,7 @@
             // axios.post('http://5ddcc1c9f40ae700141e8647.mockapi.io/add_tickets', {
               showing_id: this.idShowing,
               room_id: this.idRoom,
-              username: "no",
+              username: this.username ? this.username : "no",
               event_id: null,
               unitprice: 10,
               seats: this.seatChooses,
